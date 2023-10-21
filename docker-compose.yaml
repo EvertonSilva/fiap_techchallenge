@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  api:
+    container_name: 'api-lanchonete'
+    build: .
+    volumes:
+      - './:/app'
+    ports:
+      - 8080:8080
+    command: './mvnw spring-boot:run'
+
+  database:
+    container_name: 'postgresql-lanchonete'
+    image: 'postgres:alpine3.18'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Postgres!1@2#3

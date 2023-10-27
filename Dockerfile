@@ -10,4 +10,4 @@ RUN chmod +x mvnw && \
     ./mvnw clean install -DskipTests
 
 EXPOSE 8080
-CMD ['./mvnw', 'spring-boot:run']
+CMD ["./mvnw", "spring-boot:run", "-pl api"]

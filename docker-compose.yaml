@@ -8,7 +8,7 @@ services:
       - './:/app'
     ports:
       - 8080:8080
-    command: './mvnw spring-boot:run -pl api'
+    command: 'mvn spring-boot:run -pl api'
 
   database:
     container_name: 'postgresql-lanchonete'

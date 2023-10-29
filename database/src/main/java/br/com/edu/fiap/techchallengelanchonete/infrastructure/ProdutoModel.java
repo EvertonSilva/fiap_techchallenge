@@ -1,4 +1,4 @@
-package br.com.edu.fiap.infrastructure;
+package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

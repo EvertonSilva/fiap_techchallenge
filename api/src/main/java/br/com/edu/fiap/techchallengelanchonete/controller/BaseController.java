@@ -1,7 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
-import br.com.edu.fiap.app.ProdutoUseCase;
-import br.com.edu.fiap.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package br.com.edu.fiap.domain;
+package br.com.edu.fiap.techchallengelanchonete.domain;
 
 import lombok.Data;
 

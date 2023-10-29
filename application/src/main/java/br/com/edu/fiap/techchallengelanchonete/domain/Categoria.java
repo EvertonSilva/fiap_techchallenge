@@ -1,5 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import lombok.Data;
 
 /*
@@ -11,5 +12,5 @@ import lombok.Data;
 */
 @Data
 public class Categoria {
-    private String nome;
+    private Nome nome;
 }

@@ -1,10 +1,11 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import lombok.Data;
 
 @Data
 public class Cliente {
-    private String nome;
+    private Nome nome;
     private String email;
     private String cpf;
 }

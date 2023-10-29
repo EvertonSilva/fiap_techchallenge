@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ProdutoModel;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,13 @@ public class ProdutoUseCase {
 
     private ProdutoModel adapterToModel(Produto produto) {
         var model = new ProdutoModel();
-        model.setNome(produto.getNome());
+        model.setNome(produto.getNome().getValor());
         return model;
     }
 
     private Produto adapterToProduto(ProdutoModel model) {
         var produto = new Produto();
-        produto.setNome(model.getNome());
+        produto.setNome(new Nome(model.getNome()));
         return produto;
     }
 }

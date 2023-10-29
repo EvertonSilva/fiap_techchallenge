@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,10 @@ public class BaseController {
     public String teste()
     {
         var produto = new Produto();
-        produto.setNome("Cream cracker");
+        produto.setNome(new Nome("Cream cracker"));
         useCase.salvaProduto(produto);
 
         var prod = useCase.getProduto(1L);
-        return prod.getNome();
+        return prod.getNome().getValor();
     }
 }

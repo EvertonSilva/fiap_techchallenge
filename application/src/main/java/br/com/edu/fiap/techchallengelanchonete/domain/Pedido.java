@@ -1,5 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 import lombok.Data;
 import lombok.ToString;

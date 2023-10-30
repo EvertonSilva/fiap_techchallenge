@@ -1,7 +1,9 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
-import br.com.edu.fiap.techchallengelanchonete.domain.Cliente;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
@@ -15,12 +17,10 @@ public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
         if (clienteModel == null)
             return null;
 
-        var cliente = new Cliente();
-
-        cliente.setId(new Id(clienteModel.getId()));
-        // TODO: Implementar o restante quando o merge com a branch de produto acontecer.
-
-        return cliente;
+        return new Cliente(new Id(clienteModel.getId()),
+                new Nome(clienteModel.getNome()),
+                new Email(clienteModel.getEmail()),
+                new CPF(clienteModel.getCpf()));
     }
 
     @Override
@@ -28,11 +28,9 @@ public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
         if (cliente == null)
             return null;
 
-        var clienteModel = new ClienteModel();
-
-        clienteModel.setId(cliente.getId().getValor());
-        // TODO: Implementar o restante quando o merge com a branch de produto acontecer.
-
-        return clienteModel;
+        return new ClienteModel(cliente.getId().getValor(),
+                cliente.getNome().getValor(),
+                cliente.getEmail().getValor(),
+                cliente.getCpf().getValor());
     }
 }

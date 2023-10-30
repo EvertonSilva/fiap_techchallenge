@@ -7,33 +7,56 @@ import br.com.edu.fiap.techchallengelanchonete.infrastructure.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class ProdutoUseCase {
     @Autowired
-    private ProdutoRepository repo;
+    private ProdutoRepository produtoRepository;
 
-    public void salvaProduto(Produto produto) {
-        var model = this.adapterToModel(produto);
-        System.out.println(produto.getNome());
-        System.out.println(model.getNome());
-        repo.save(model);
+    @Autowired
+    private CategoriaUseCase categoriaUseCase;
+
+    public Produto saveProduto(Produto produto) {
+        ProdutoModel model = this.adapterToModel(produto);
+        return adapterToProduto(produtoRepository.save(model));
     }
 
-    public Produto getProduto(Long id) {
-        var model = repo.findById(id).get();
-        var produto = this.adapterToProduto(model);
+    public List<Produto> getAllProdutos() {
+        List<ProdutoModel> produtosModel = produtoRepository.findAll();
+        List<Produto> produtos = new ArrayList<>();
+        produtosModel.forEach(p -> produtos.add(adapterToProduto(p)));
+        return produtos;
+    }
+
+    public Produto getProdutoById(Long id) {
+        ProdutoModel model = produtoRepository.findById(id).get();
+        Produto produto = this.adapterToProduto(model);
         return produto;
     }
 
+    public List<Produto> getProdutoByCategoria(String descricaoCategoria) {
+        List<ProdutoModel> produtosModel = produtoRepository.findByCategoria_Nome(descricaoCategoria);
+        List<Produto> produtos = new ArrayList();
+        produtosModel.forEach(p -> produtos.add(adapterToProduto(p)));
+        return produtos;
+    }
     private ProdutoModel adapterToModel(Produto produto) {
-        var model = new ProdutoModel();
+        ProdutoModel model = new ProdutoModel();
         model.setNome(produto.getNome().getValor());
+        model.setDescricao(produto.getDescricao());
+        model.setPreco(produto.getPreco());
+        model.setCategoria(categoriaUseCase.adapterToModel(produto.getCategoria()));
         return model;
     }
 
     private Produto adapterToProduto(ProdutoModel model) {
-        var produto = new Produto();
+        Produto produto = new Produto();
         produto.setNome(new Nome(model.getNome()));
+        produto.setDescricao(model.getDescricao());
+        produto.setPreco(model.getPreco());
+        produto.setCategoria(categoriaUseCase.adapterToCategoria(model.getCategoria()));
         return produto;
     }
 }

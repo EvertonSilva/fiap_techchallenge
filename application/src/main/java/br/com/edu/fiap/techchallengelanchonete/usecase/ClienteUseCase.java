@@ -1,7 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
-import br.com.edu.fiap.techchallengelanchonete.domain.Cliente;
-import br.com.edu.fiap.techchallengelanchonete.domain.ClienteNulo;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
@@ -29,7 +29,7 @@ public class ClienteUseCase {
 
     public Cliente autenticaCliente(Cliente cliente) {
         var model = adapterToClienteModel(cliente);
-        var clienteExiste = repo.findByCPF(model.getCpf());
+        var clienteExiste = repo.findBycpf(model.getCpf());
 
         return clienteExiste.map(this::adapterToCliente).orElseGet(() -> salvaCliente(cliente));
     }

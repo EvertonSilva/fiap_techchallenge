@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
 
         var cliente = new Cliente();
 
-        cliente.setId(clienteModel.getId());
+        cliente.setId(new Id(clienteModel.getId()));
         // TODO: Implementar o restante quando o merge com a branch de produto acontecer.
 
         return cliente;
@@ -29,7 +30,7 @@ public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
 
         var clienteModel = new ClienteModel();
 
-        clienteModel.setId(cliente.getId());
+        clienteModel.setId(cliente.getId().getValor());
         // TODO: Implementar o restante quando o merge com a branch de produto acontecer.
 
         return clienteModel;

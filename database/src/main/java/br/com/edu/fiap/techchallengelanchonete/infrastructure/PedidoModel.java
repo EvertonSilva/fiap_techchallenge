@@ -9,10 +9,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "pedidos")
-public class PedidoModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PedidoModel extends DomainObject {
+
     @OneToMany(mappedBy = "pedido", cascade = { CascadeType.ALL }, orphanRemoval = true)
     private List<ItemPedidoModel> itens;
     @ManyToOne

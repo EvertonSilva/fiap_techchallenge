@@ -1,12 +1,14 @@
 package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
+@NoArgsConstructor
+@Data
 @MappedSuperclass
 public abstract class DomainObject implements Serializable {
 
@@ -16,19 +18,24 @@ public abstract class DomainObject implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public DomainObject() {
-    }
+    @Column(name = "data_criacao")
+    protected Date dataCriacao;
+
+    @Column(name = "data_atualizacao")
+    protected Date dataAtualizacao;
 
     public DomainObject(long id) {
-    }
-
-    // Getters and setters, if needed
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
         this.id = id;
+    }
+
+    @PrePersist
+    public void setDataCriacao() {
+        this.dataCriacao = new Date();
+        this.dataAtualizacao = new Date();
+    }
+
+    @PreUpdate
+    public void setDataAtualizacao() {
+        this.dataAtualizacao = new Date();
     }
 }

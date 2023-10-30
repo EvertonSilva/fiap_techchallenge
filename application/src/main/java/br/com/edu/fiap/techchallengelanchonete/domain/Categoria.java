@@ -12,5 +12,6 @@ import lombok.Data;
 */
 @Data
 public class Categoria {
+    private Long id;
     private Nome nome;
 }

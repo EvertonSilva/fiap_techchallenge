@@ -1,24 +1,31 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Descricao;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Produto {
-    // FIXME: Trocar id por Value Object.
-    private Long id;
+@ToString
+@EqualsAndHashCode(callSuper=true)
+public class Produto extends DomainObject {
     private Nome nome;
-    private String descricao;
-    private BigDecimal preco;
+    private Descricao descricao;
+    private Valor preco;
     private Categoria categoria;
     private List<Imagem> imagens;
 
     public Produto() {
-        // TODO: Implementar o restante quando o merge com a branch de produto acontecer.
         this.nome = new Nome("");
-        this.preco = new BigDecimal(0);
+        this.descricao = new Descricao("");
+        this.preco = new Valor(new BigDecimal(0));
+        this.imagens = new ArrayList<>();
     }
 }

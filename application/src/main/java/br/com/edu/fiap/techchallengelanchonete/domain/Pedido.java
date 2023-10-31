@@ -2,7 +2,9 @@ package br.com.edu.fiap.techchallengelanchonete.domain;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -11,7 +13,9 @@ import java.util.List;
 
 @Data
 @ToString
-public class Pedido {
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper=true)
+public class Pedido extends DomainObject {
     private List<ItemPedido> itens;
     private Cliente cliente;
     private Pagamento pagamento;

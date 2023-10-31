@@ -6,8 +6,10 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=true)
 public class ClienteNulo extends DomainObject implements ICliente {
     private Nome nome;
     private Email email;

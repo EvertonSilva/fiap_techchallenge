@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Nome {
     private String valor;
 }

@@ -2,17 +2,15 @@ package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
 @Table(name = "produtos")
-public class ProdutoModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+@EqualsAndHashCode(callSuper = true)
+public class ProdutoModel extends DomainObject {
     @Column
     private String nome;
 

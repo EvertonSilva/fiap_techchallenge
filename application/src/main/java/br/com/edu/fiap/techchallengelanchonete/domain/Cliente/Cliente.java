@@ -16,7 +16,9 @@ public class Cliente extends DomainObject implements ICliente {
     private CPF cpf;
 
     public Cliente(){
-        super();
+        this.nome = new Nome("");
+        this.cpf = new CPF("");
+        this.email = new Email("");
     }
 
     public Cliente(Id id, Nome nome, Email email, CPF cpf){

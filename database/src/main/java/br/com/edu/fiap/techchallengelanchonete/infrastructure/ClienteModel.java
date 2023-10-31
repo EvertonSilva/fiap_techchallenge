@@ -23,4 +23,11 @@ public class ClienteModel extends DomainObject {
         this.email = email;
         this.cpf = cpf;
     }
+
+    public ClienteModel(String nome, String email, String cpf){
+        super();
+        this.nome = nome;
+        this.email = email;
+        this.cpf = cpf;
+    }
 }

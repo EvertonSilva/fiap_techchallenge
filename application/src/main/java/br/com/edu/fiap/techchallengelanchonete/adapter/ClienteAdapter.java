@@ -1,7 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
-import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
@@ -10,7 +9,7 @@ import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
+public class ClienteAdapter implements IAdapter<Cliente, ClienteModel> {
 
     @Override
     public Cliente toDomain(ClienteModel clienteModel) {
@@ -28,9 +27,16 @@ public class ClienteAdpter implements IAdapter<Cliente, ClienteModel> {
         if (cliente == null)
             return null;
 
-        return new ClienteModel(cliente.getId().getValor(),
-                cliente.getNome().getValor(),
-                cliente.getEmail().getValor(),
-                cliente.getCpf().getValor());
+        Long id = (cliente.getId() != null) ? cliente.getId().getValor() : null;
+        if(id == null)
+            return new ClienteModel(cliente.getNome().getValor(),
+                    cliente.getEmail().getValor(),
+                    cliente.getCpf().getValor());
+        else
+            return new ClienteModel(cliente.getId().getValor(),
+                    cliente.getNome().getValor(),
+                    cliente.getEmail().getValor(),
+                    cliente.getCpf().getValor());
+
     }
 }

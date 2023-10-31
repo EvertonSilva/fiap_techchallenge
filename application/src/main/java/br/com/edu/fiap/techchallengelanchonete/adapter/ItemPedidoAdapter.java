@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Quantidade;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ItemPedidoModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,12 @@ public class ItemPedidoAdapter implements IAdapter<ItemPedido, ItemPedidoModel> 
 
     @Override
     public ItemPedido toDomain(ItemPedidoModel itemPedidoModel) {
+        if (itemPedidoModel == null)
+            return null;
+
         var itemPedido = new ItemPedido();
 
+        itemPedido.setId(new Id(itemPedidoModel.getId()));
         itemPedido.setProduto(produtoAdapter.toDomain(itemPedidoModel.getProduto()));
         itemPedido.setQuantidade(new Quantidade(itemPedidoModel.getQuantidade()));
 
@@ -28,7 +33,13 @@ public class ItemPedidoAdapter implements IAdapter<ItemPedido, ItemPedidoModel> 
 
     @Override
     public ItemPedidoModel toModel(ItemPedido itemPedido) {
+        if (itemPedido == null)
+            return null;
+
         var itemPedidoModel = new ItemPedidoModel();
+
+        if (itemPedido.getId() != null)
+            itemPedidoModel.setId(itemPedido.getId().getValor());
 
         itemPedidoModel.setQuantidade(itemPedido.getQuantidade().getValor());
         itemPedidoModel.setProduto(produtoAdapter.toModel(itemPedido.getProduto()));

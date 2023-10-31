@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quantidade {
-    private int valor;
+public class Descricao {
+    private String valor;
 }

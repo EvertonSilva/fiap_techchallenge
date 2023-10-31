@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +10,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "pedidos")
+@EqualsAndHashCode(callSuper = true)
 public class PedidoModel extends DomainObject {
-
     @OneToMany(mappedBy = "pedido", cascade = { CascadeType.ALL }, orphanRemoval = true)
     private List<ItemPedidoModel> itens;
     @ManyToOne

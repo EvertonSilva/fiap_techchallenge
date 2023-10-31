@@ -2,14 +2,13 @@ package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "itens_pedido")
-public class ItemPedidoModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class ItemPedidoModel extends DomainObject {
     @Column
     private int quantidade;
     @ManyToOne

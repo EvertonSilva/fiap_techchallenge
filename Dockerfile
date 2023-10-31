@@ -10,4 +10,4 @@ COPY . /app
 RUN mvn clean install -DskipTests
 
 EXPOSE 8080
-CMD ["mvn", "spring-boot:run", "-pl api"]
+CMD ["mvn", "spring-boot:run", "-pl api", "-Dspring-boot.run.profiles=prod"]

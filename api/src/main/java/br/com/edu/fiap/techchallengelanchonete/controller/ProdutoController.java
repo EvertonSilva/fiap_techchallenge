@@ -1,7 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
-import br.com.edu.fiap.techchallengelanchonete.usecase.CategoriaUseCase;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,9 @@ public class ProdutoController {
     @Autowired
     ProdutoUseCase useCase;
 
-    @Autowired
-    CategoriaUseCase categoriaUseCase;
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
+        System.out.println(produto.toString());
         return new ResponseEntity<Produto>
                 (useCase.saveProduto(produto),
                         HttpStatus.CREATED);

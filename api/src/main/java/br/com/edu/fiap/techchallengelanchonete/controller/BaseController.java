@@ -6,7 +6,6 @@ import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
-import br.com.edu.fiap.techchallengelanchonete.usecase.CategoriaUseCase;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ClienteUseCase;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BaseController {
+
     @GetMapping("/teste")
     public String teste()
     {

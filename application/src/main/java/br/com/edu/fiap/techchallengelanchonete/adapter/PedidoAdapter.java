@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.PedidoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,12 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
 
     @Override
     public Pedido toDomain(PedidoModel pedidoModel) {
+        if (pedidoModel == null)
+            return null;
+
         var pedido = new Pedido();
 
+        pedido.setId(new Id(pedidoModel.getId()));
         pedido.setCliente(clienteAdpter.toDomain(pedidoModel.getCliente()));
         pedido.setStatus(StatusPedido.valueOf(pedidoModel.getStatusPedido()));
         pedido.setPagamento(pagamentoAdapter.toDomain(pedidoModel.getStatusPagamento()));
@@ -36,7 +41,13 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
 
     @Override
     public PedidoModel toModel(Pedido pedido) {
+        if (pedido == null)
+            return null;
+
         var pedidoModel = new PedidoModel();
+
+        if (pedido.getId() != null)
+            pedidoModel.setId(pedido.getId().getValor());
 
         pedidoModel.setCliente(clienteAdpter.toModel(pedido.getCliente()));
         pedidoModel.setStatusPedido(pedido.getStatus().toString());

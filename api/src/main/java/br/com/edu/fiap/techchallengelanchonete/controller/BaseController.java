@@ -6,7 +6,6 @@ import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
-import br.com.edu.fiap.techchallengelanchonete.usecase.CategoriaUseCase;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ClienteUseCase;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,25 +22,7 @@ public class BaseController {
     ProdutoUseCase useCase;
 
     @Autowired
-    CategoriaUseCase categoriaUseCase;
-
-    @Autowired
     ClienteUseCase clienteUseCase;
-
-//    @GetMapping("/teste")
-//    public String teste(@RequestParam("id") Integer id)
-//    {
-//        var categoria = new Categoria();
-//        categoria.setNome(new Nome("teste"));
-//        categoriaUseCase.salvaCategoria(categoria);
-//        var produto = new Produto();
-//        produto.setNome(new Nome("Cream cracker"));
-//        produto.setCategoria(categoria);
-//        useCase.saveProduto(produto);
-//
-//        var prod = useCase.getProduto(id.longValue());
-//        return prod.getNome().getValor();
-//    }
 
     @GetMapping("/cliente")
     public String salvaCliente()

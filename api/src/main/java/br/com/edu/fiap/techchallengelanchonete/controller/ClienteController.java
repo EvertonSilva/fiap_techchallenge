@@ -22,20 +22,17 @@ public class ClienteController {
     }
 
     @PostMapping("/autenticaCliente")
-    public ResponseEntity<Cliente> buscaCliente()
+    public ResponseEntity<Cliente> buscaCliente(@RequestBody Cliente cliente)
     {
-        var cliente = new Cliente(new Email("autentica@cliente"), new CPF("11111111122"));
+        //var cliente = new Cliente(new Email("autentica@cliente"), new CPF("11111111122"));
         cliente = clienteUseCase.autenticaCliente(cliente);
-
         return ResponseEntity.ok().body(cliente);
     }
 
     @PostMapping("/criaCliente")
     public ResponseEntity<Cliente> criaCliente(@RequestBody Cliente cliente)
     {
-        //var cliente = new Cliente(new Nome("Nome cliente 001"), new Email("salva@cliente"), new CPF( "11111111111"));
         cliente = clienteUseCase.salvaCliente(cliente);
-
         return ResponseEntity.ok().body(cliente);
     }
 

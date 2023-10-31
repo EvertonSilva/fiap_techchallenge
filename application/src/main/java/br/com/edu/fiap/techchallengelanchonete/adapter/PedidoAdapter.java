@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 @Component
 public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
 
-    private ClienteAdpter clienteAdpter;
+    private ClienteAdapter clienteAdpter;
     private PagamentoAdapter pagamentoAdapter;
     private ItemPedidoAdapter itemPedidoAdapter;
 
     @Autowired
-    public PedidoAdapter(ClienteAdpter clienteAdpter, PagamentoAdapter pagamentoAdapter, ItemPedidoAdapter itemPedidoAdapter) {
+    public PedidoAdapter(ClienteAdapter clienteAdpter, PagamentoAdapter pagamentoAdapter, ItemPedidoAdapter itemPedidoAdapter) {
         this.clienteAdpter = clienteAdpter;
         this.pagamentoAdapter = pagamentoAdapter;
         this.itemPedidoAdapter = itemPedidoAdapter;

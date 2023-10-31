@@ -30,17 +30,20 @@ public class ClienteUseCase {
         return this.clienteExiste(cliente);
     }
 
-    public Cliente autenticaCliente(Cliente cliente) {
-        return this.clienteExiste(cliente);
-    }
-
-    public Cliente autenticaCliente2(String cpf, String email) {
+    public Cliente autenticaCliente(String cpf, String email) {
         var clienteExiste = this.clienteRepository.findBycpfAndEmail(cpf, email);
         if (clienteExiste.isPresent())
             return this.clienteAdapter.toDomain(clienteExiste.get());
         else
             return null;
+    }
 
+    public Cliente buscaClientePorCPF(String cpf) {
+        var clienteExiste = this.clienteRepository.findBycpf(cpf);
+        if (clienteExiste.isPresent())
+            return this.clienteAdapter.toDomain(clienteExiste.get());
+        else
+            return null;
     }
 
     private Cliente clienteExiste(Cliente cliente){

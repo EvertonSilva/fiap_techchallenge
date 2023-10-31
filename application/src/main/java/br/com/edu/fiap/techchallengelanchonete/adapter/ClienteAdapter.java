@@ -27,16 +27,17 @@ public class ClienteAdapter implements IAdapter<Cliente, ClienteModel> {
         if (cliente == null)
             return null;
 
-        Long id = (cliente.getId() != null) ? cliente.getId().getValor() : null;
-        if(id == null)
-            return new ClienteModel(cliente.getNome().getValor(),
-                    cliente.getEmail().getValor(),
-                    cliente.getCpf().getValor());
-        else
-            return new ClienteModel(cliente.getId().getValor(),
-                    cliente.getNome().getValor(),
-                    cliente.getEmail().getValor(),
-                    cliente.getCpf().getValor());
+        ClienteModel clienteModel = new ClienteModel();
 
+        if(cliente.getId() != null)
+            clienteModel.setId(cliente.getId().getValor());
+
+        if(cliente.getNome() != null)
+            clienteModel.setNome(cliente.getNome().getValor());
+
+        clienteModel.setEmail(cliente.getEmail().getValor());
+        clienteModel.setCpf(cliente.getCpf().getValor());
+
+        return clienteModel;
     }
 }

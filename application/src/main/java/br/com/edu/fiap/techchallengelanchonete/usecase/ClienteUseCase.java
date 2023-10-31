@@ -22,7 +22,7 @@ public class ClienteUseCase {
         this.clienteAdapter = clienteAdapter;
     }
 
-    public ClienteNulo semIdentificacaoCliente(Cliente cliente) {
+    public ClienteNulo semIdentificacaoCliente() {
         return new ClienteNulo(new Id(0), new Nome("ClienteNulo"), new Email("nulo@nulo"), new CPF("00000000000"));
     }
 
@@ -32,6 +32,15 @@ public class ClienteUseCase {
 
     public Cliente autenticaCliente(Cliente cliente) {
         return this.clienteExiste(cliente);
+    }
+
+    public Cliente autenticaCliente2(String cpf, String email) {
+        var clienteExiste = this.clienteRepository.findBycpfAndEmail(cpf, email);
+        if (clienteExiste.isPresent())
+            return this.clienteAdapter.toDomain(clienteExiste.get());
+        else
+            return null;
+
     }
 
     private Cliente clienteExiste(Cliente cliente){

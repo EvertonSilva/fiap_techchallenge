@@ -11,7 +11,7 @@
 //import java.util.List;
 //
 //@RestController
-//@RequestMapping("produtos")
+//@RequestMapping("/produtos")
 //public class ProdutoController {
 //    @Autowired
 //    ProdutoUseCase useCase;
@@ -30,8 +30,8 @@
 //                .body(useCase.getAllProdutos());
 //    }
 //
-//    @RequestMapping(value="/id", method = RequestMethod.GET)
-//    public ResponseEntity<Produto> getById(@RequestParam("id") Long id) {
+//    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+//    public ResponseEntity<Produto> getById(@PathVariable Long id) {
 //        return ResponseEntity.ok()
 //                .body(useCase.getProdutoById(id));
 //    }

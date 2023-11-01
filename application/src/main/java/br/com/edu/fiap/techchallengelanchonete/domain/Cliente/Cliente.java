@@ -29,14 +29,14 @@ public class Cliente extends DomainObject implements ICliente {
     }
 
     public Cliente(Email email, CPF cpf){
-        super(new Id(0));
+        super(new Id(Long.valueOf(0)));
         this.nome = new Nome("");
         this.email = email;
         this.cpf = cpf;
     }
 
     public Cliente(Nome nome, Email email, CPF cpf){
-        super(new Id(0));
+        super(new Id(Long.valueOf(0)));
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;

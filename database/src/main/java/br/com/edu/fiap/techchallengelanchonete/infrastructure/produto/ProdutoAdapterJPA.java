@@ -54,11 +54,11 @@ public class ProdutoAdapterJPA implements IProdutoPersistence {
     public Optional<Produto> buscaId(Long id) {
         var optionalProduto = this.produtoRepository.findById(id);
         return optionalProduto.isPresent() ?
-                Optional.of(this.produtoAdapter.toDomain(optionalProduto.get())) : Optional.of(null);
+                Optional.of(this.produtoAdapter.toDomain(optionalProduto.get())) : Optional.empty();
     }
 
     @Override
     public List<Produto> buscaCategoria(String descricao) {
-        return this.produtoRepository.findByCategoria_Nome(descricao).stream().map(x -> this.produtoAdapter.toDomain(x)).collect(Collectors.toList());
+        return this.produtoRepository.findByCategoria_Nome(descricao.toUpperCase()).stream().map(x -> this.produtoAdapter.toDomain(x)).collect(Collectors.toList());
     }
 }

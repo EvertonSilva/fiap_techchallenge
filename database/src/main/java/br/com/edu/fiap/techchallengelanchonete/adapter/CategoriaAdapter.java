@@ -3,7 +3,7 @@ package br.com.edu.fiap.techchallengelanchonete.adapter;
 import br.com.edu.fiap.techchallengelanchonete.domain.Categoria;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.CategoriaModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.categoria.CategoriaModel;
 import org.springframework.stereotype.Component;
 
 @Component

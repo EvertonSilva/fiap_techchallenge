@@ -51,4 +51,18 @@ public class ProdutoUseCase {
         produtosModel.forEach(p -> produtos.add(this.produtoAdapter.toDomain(p)));
         return produtos;
     }
+
+    public Produto updateProduto(Long id, Produto produto) {
+        ProdutoModel produtoModel = produtoRepository.findById(id).get();
+        produtoAdapter.setUpdate(produto, produtoModel);
+        return produtoAdapter.toDomain(produtoRepository.save(produtoModel));
+    }
+
+
+
+    public void deleteProduto(Long id) {
+        ProdutoModel produtoModel = produtoRepository.findById(id).get();
+        produtoRepository.deleteById(id);
+    }
+
 }

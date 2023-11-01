@@ -1,6 +1,6 @@
-package br.com.edu.fiap.techchallengelanchonete.Validation;
+package br.com.edu.fiap.techchallengelanchonete.validation;
 
-import br.com.edu.fiap.techchallengelanchonete.Validation.Annotation.ValidCliente;
+import br.com.edu.fiap.techchallengelanchonete.validation.annotation.ValidCliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;

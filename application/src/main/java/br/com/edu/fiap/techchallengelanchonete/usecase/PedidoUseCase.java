@@ -1,51 +1,74 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
+import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
+import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 
 import java.util.List;
 
 public class PedidoUseCase {
-    private IPedidoPersistence pedidoRepository;
+    private IPedidoPersistence pedidoPersistence;
+    private IProdutoPersistence produtoPersistence;
 
-    public PedidoUseCase(IPedidoPersistence pedidoRepository) {
-        this.pedidoRepository = pedidoRepository;
+    public PedidoUseCase(IPedidoPersistence pedidoPersistence, IProdutoPersistence produtoPersistence) {
+        this.pedidoPersistence = pedidoPersistence;
+        this.produtoPersistence = produtoPersistence;
     }
 
     public Pedido registraPedido(Pedido pedido) {
-        return this.pedidoRepository.registraPedido(pedido);
+        if (!protudosExistentes(pedido))
+            throw new ApplicationException("Produto(s) inexistente(s)!");
+
+        if (pedido.getCliente() == null)
+            pedido.setCliente(new ClienteNulo());
+
+        return this.pedidoPersistence.registraPedido(pedido);
     }
 
     public List<Pedido> listaPedidos() {
-        return this.pedidoRepository.listaPedidos();
+        return this.pedidoPersistence.listaPedidos();
     }
 
     public List<Pedido> listaPedidosPorStatus(String status) {
-        try {
-            StatusPedido statusPedido = getStatusPedido(status);
-            return pedidoRepository.listaPedidosPorStatus(statusPedido);
-        } catch (IllegalArgumentException ex) {
-            throw  new RuntimeException("Status não existe");
-        }
+        StatusPedido statusPedido = getStatusPedido(status);
+        return pedidoPersistence.listaPedidosPorStatus(statusPedido);
     }
 
     public Pedido atualizaStatusPedido(Long idPedido, String status) {
-        try {
-            var pedido = pedidoRepository.pedidoPorId(idPedido);
-            StatusPedido statusPedido = getStatusPedido(status);
+        var pedido = pedidoPersistence.pedidoPorId(idPedido);
+        StatusPedido statusPedido = getStatusPedido(status);
 
-            // TODO validar se pedido pode "avançar" para o status recebido
-            pedido.setStatus(statusPedido);
-            pedidoRepository.registraPedido(pedido);
+        if (!pedido.validaProximoStatus(statusPedido))
+            throw new ApplicationException("Status incoerente!");
 
-            return pedido;
-        } catch (IllegalArgumentException ex) {
-            throw  new RuntimeException("Status não existe");
-        }
+        pedido.setStatus(statusPedido);
+        pedidoPersistence.registraPedido(pedido);
+
+        return pedido;
     }
 
     private StatusPedido getStatusPedido(String status) {
-        return Enum.valueOf(StatusPedido.class, status.toUpperCase());
+        try {
+            return Enum.valueOf(StatusPedido.class, status.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw  new ApplicationException("Status não existe");
+        }
+    }
+
+    private boolean protudosExistentes(Pedido pedido) {
+        var produtosExistentes =
+                !pedido.getItens().isEmpty()
+                        && pedido.getItens().stream().allMatch(x -> x.getProduto() != null);
+
+        for (ItemPedido item: pedido.getItens()) {
+            var produtoBuscado = this.produtoPersistence.buscaId(item.getProduto().getId().getValor());
+            produtosExistentes &= produtoBuscado.isPresent();
+        }
+
+        return produtosExistentes;
     }
 }

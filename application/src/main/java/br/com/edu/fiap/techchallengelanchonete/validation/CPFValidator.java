@@ -1,6 +1,6 @@
-package br.com.edu.fiap.techchallengelanchonete.Validation;
+package br.com.edu.fiap.techchallengelanchonete.validation;
 
-import br.com.edu.fiap.techchallengelanchonete.Validation.Annotation.ValidCPF;
+import br.com.edu.fiap.techchallengelanchonete.validation.annotation.ValidCPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

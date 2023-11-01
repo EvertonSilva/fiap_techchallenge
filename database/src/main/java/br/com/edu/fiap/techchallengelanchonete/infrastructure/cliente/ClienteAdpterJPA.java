@@ -1,9 +1,10 @@
-package br.com.edu.fiap.techchallengelanchonete.infrastructure;
+package br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente;
 
 import br.com.edu.fiap.techchallengelanchonete.adapter.ClienteAdapter;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

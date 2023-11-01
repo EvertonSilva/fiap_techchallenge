@@ -6,6 +6,7 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
+import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -21,20 +22,15 @@ public class ClienteUseCase {
         this.clienteRepository = clienteRepository;
     }
 
-    public ClienteNulo semIdentificacaoCliente() {
-        return new ClienteNulo();
-    }
-
     public Cliente salvaCliente(Cliente cliente) {
         Cliente clienteExiste = this.clienteRepository.buscaCPF(cliente.getCpf());
-        if(clienteExiste.getId() != null)
-            return clienteExiste;
-        else
-            return this.clienteRepository.cadastro(cliente);
+        if (clienteExiste.getId() != null)
+            throw new ApplicationException("Cliente já existe!");
+
+        return this.clienteRepository.cadastro(cliente);
     }
 
     public Cliente buscaClientePorCPF(String cpf) {
-//        this.teste();
         return this.clienteRepository.buscaCPF(new CPF(cpf));
     }
 

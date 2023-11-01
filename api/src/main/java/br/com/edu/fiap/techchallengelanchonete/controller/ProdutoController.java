@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.categoria.CategoriaAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class ProdutoController {
     private ProdutoUseCase produtoUseCase;
 
     @Autowired
-    public ProdutoController(ProdutoAdapterJPA produtoAdapterJPA) {
-        this.produtoUseCase = new ProdutoUseCase(produtoAdapterJPA);
+    public ProdutoController(ProdutoAdapterJPA produtoAdapterJPA, CategoriaAdapterJPA categoriaAdapterJPA) {
+        this.produtoUseCase = new ProdutoUseCase(produtoAdapterJPA, categoriaAdapterJPA);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -30,21 +31,20 @@ public class ProdutoController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Produto>> getAllProdutos() {
-        return ResponseEntity.ok()
-                .body(produtoUseCase.getAllProdutos());
+    public ResponseEntity<List<Produto>> getAllProdutos(
+            @RequestParam(value = "categoria", required = false) String descricaoCategoria) {
+
+        return descricaoCategoria == null ?
+                ResponseEntity.ok().body(produtoUseCase.getAllProdutos()) :
+                ResponseEntity.ok().body(produtoUseCase.getProdutoByCategoria(descricaoCategoria));
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity<Produto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok()
-                .body(produtoUseCase.getProdutoById(id));
-    }
+        var produto = produtoUseCase.getProdutoById(id);
 
-    @RequestMapping(value="/categoria", method = RequestMethod.GET)
-    public ResponseEntity<List<Produto>> getByCategoria(@RequestParam("categoria") String descricaoCategoria) {
-        return ResponseEntity.ok()
-                .body(produtoUseCase.getProdutoByCategoria(descricaoCategoria));
+        return produto != null ?
+                ResponseEntity.ok(produto) : ResponseEntity.notFound().build();
     }
 
 }

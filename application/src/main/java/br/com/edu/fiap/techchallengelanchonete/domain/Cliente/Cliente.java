@@ -8,9 +8,11 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString
 public class Cliente extends DomainObject implements ICliente {
     private Nome nome;
     private Email email;

@@ -1,6 +1,6 @@
-package br.com.edu.fiap.techchallengelanchonete.Validation.Annotation;
+package br.com.edu.fiap.techchallengelanchonete.validation.annotation;
 
-import br.com.edu.fiap.techchallengelanchonete.Validation.EmailValidator;
+import br.com.edu.fiap.techchallengelanchonete.validation.EmailValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;
@@ -9,8 +9,8 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = EmailValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEmail {
-    String message() default "E-mail inválido";
+public @interface ValidNome {
+    String message() default "Nome inválido";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

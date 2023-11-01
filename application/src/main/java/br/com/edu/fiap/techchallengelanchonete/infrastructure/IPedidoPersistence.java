@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IPedidoPersistence {
     Pedido registraPedido(Pedido pedido);
+    Pedido pedidoPorId(Long idPedido);
     List<Pedido> listaPedidos();
     List<Pedido> listaPedidosPorStatus(StatusPedido status);
 }

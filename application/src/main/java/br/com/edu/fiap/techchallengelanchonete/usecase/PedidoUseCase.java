@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.usecase;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
+import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
 
 import java.util.List;
@@ -35,13 +36,15 @@ public class PedidoUseCase {
             var pedido = pedidoRepository.pedidoPorId(idPedido);
             StatusPedido statusPedido = getStatusPedido(status);
 
-            // TODO validar se pedido pode "avançar" para o status recebido
+            if (!pedido.validaProximoStatus(statusPedido))
+                throw new RuntimeException("Status incoerente!");
+
             pedido.setStatus(statusPedido);
             pedidoRepository.registraPedido(pedido);
 
             return pedido;
         } catch (IllegalArgumentException ex) {
-            throw  new RuntimeException("Status não existe");
+            throw  new ApplicationException("Status não existe");
         }
     }
 

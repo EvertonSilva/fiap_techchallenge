@@ -1,6 +1,6 @@
-package br.com.edu.fiap.techchallengelanchonete.Validation;
+package br.com.edu.fiap.techchallengelanchonete.validation;
 
-import br.com.edu.fiap.techchallengelanchonete.Validation.Annotation.ValidNome;
+import br.com.edu.fiap.techchallengelanchonete.validation.annotation.ValidNome;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

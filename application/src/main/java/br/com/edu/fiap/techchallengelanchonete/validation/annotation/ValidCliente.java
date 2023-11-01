@@ -1,6 +1,6 @@
-package br.com.edu.fiap.techchallengelanchonete.Validation.Annotation;
+package br.com.edu.fiap.techchallengelanchonete.validation.annotation;
 
-import br.com.edu.fiap.techchallengelanchonete.Validation.ClienteValidator;
+import br.com.edu.fiap.techchallengelanchonete.validation.ClienteValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;

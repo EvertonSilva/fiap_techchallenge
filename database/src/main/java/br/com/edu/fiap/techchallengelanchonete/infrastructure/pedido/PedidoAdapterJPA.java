@@ -31,6 +31,12 @@ public class PedidoAdapterJPA implements IPedidoPersistence {
     }
 
     @Override
+    public Pedido pedidoPorId(Long idPedido) {
+        var pedidoModel = this.repository.findById(idPedido).orElse(null);
+        return this.adapter.toDomain(pedidoModel);
+    }
+
+    @Override
     public List<Pedido> listaPedidos() {
         var pedidosModel = this.repository.findAll();
         return pedidosModel.stream().map(x -> this.adapter.toDomain(x)).collect(Collectors.toList());

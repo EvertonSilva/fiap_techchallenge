@@ -33,4 +33,9 @@ public class PedidoController {
                 ResponseEntity.ok(pedidoUseCase.listaPedidos()) :
                 ResponseEntity.ok(pedidoUseCase.listaPedidosPorStatus(status));
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Pedido> atualizaStatusPedido(@PathVariable Long id, @RequestBody String status) {
+        return ResponseEntity.ok(pedidoUseCase.atualizaStatusPedido(id, status));
+    }
 }

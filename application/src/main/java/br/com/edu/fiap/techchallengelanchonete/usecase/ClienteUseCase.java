@@ -7,6 +7,12 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+import java.util.Set;
 
 public class ClienteUseCase {
     private IClientePersistence clienteRepository;
@@ -20,33 +26,30 @@ public class ClienteUseCase {
     }
 
     public Cliente salvaCliente(Cliente cliente) {
-        return this.clienteRepository.cadastro(cliente);
+        Cliente clienteExiste = this.clienteRepository.buscaCPF(cliente.getCpf());
+        if(clienteExiste.getId() != null)
+            return clienteExiste;
+        else
+            return this.clienteRepository.cadastro(cliente);
     }
 
-    // FIXME
-//    public Cliente autenticaCliente(String cpf, String email) {
-//        var clienteExiste = this.clienteRepository.findBycpfAndEmail(cpf, email);
-//        if (clienteExiste.isPresent())
-//            return this.clienteAdapter.toDomain(clienteExiste.get());
-//        else
-//            return null;
-//    }
-
     public Cliente buscaClientePorCPF(String cpf) {
+//        this.teste();
         return this.clienteRepository.buscaCPF(new CPF(cpf));
     }
 
-    // FIXME
-//    private Cliente clienteExiste(Cliente cliente){
-//        var model = this.clienteAdapter.toModel(cliente);
+//    private void teste()
+//    {
+//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//        Validator validator = factory.getValidator();
 //
-//        var clienteExiste = this.clienteRepository.findBycpf(model.getCpf());
-//        if (clienteExiste.isPresent())
-//            return this.clienteAdapter.toDomain(clienteExiste.get());
-//        else{
-//            model = this.clienteRepository.save(model);
-//            return this.clienteAdapter.toDomain(model);
-//        }
+//        Cliente cliente = new Cliente();
+//        cliente.setNome(new Nome("Cliente Teste"));
+//
+//        Set<ConstraintViolation<Cliente>> violations = validator.validate(cliente);
+//
+//        if (violations.isEmpty())
+//            System.out.println("Cliente é válido.");
 //    }
 
 }

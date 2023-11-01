@@ -4,6 +4,8 @@ import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.usecase.PedidoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +25,11 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<Pedido> pedido(@RequestBody Pedido pedido) {
         System.out.println(pedido.toString());
-        return ResponseEntity.ok(pedidoUseCase.registraPedido(pedido));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoUseCase.registraPedido(pedido));
     }
 
     @GetMapping
     public ResponseEntity<List<Pedido>> pedidos(@RequestParam(name = "status", required = false) String status) {
-
         return status == null ?
                 ResponseEntity.ok(pedidoUseCase.listaPedidos()) :
                 ResponseEntity.ok(pedidoUseCase.listaPedidosPorStatus(status));

@@ -19,8 +19,14 @@ public class ProdutoUseCase {
     }
 
     public Produto saveProduto(Produto produto) {
-        Categoria categoriaExiste = this.categoriaPersistence.buscaCategoria(produto.getCategoria().getId().getValor());
-        if (categoriaExiste.getId() == null)
+        var categoriaExistente = false;
+        var categoriaInformada = produto.getCategoria() != null && produto.getCategoria().getId() != null;
+        if (categoriaInformada) {
+            Categoria categoriaBuscada = this.categoriaPersistence.buscaCategoria(produto.getCategoria().getId().getValor());
+            categoriaExistente = categoriaBuscada.getId() != null;
+        }
+
+        if (!categoriaInformada || categoriaExistente)
             throw new ApplicationException("Categoria não existe!");
 
         return produtoPersistence.cadastro(produto);

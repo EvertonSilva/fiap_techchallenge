@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Quantidade {
-    private int valor;
+    private Integer valor;
 }

@@ -41,4 +41,18 @@ public class ProdutoController {
                 .body(useCase.getProdutoByCategoria(descricaoCategoria));
     }
 
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Produto> updateProduto(@PathVariable Long id,
+                                                 @RequestBody Produto produto) {
+        return new ResponseEntity<Produto>
+                (useCase.updateProduto(id, produto),
+                        HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity updateProduto(@PathVariable Long id) {
+        useCase.deleteProduto(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

@@ -17,8 +17,8 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
     private ItemPedidoAdapter itemPedidoAdapter;
 
     @Autowired
-    public PedidoAdapter(ClienteAdapter clienteAdpter, PagamentoAdapter pagamentoAdapter, ItemPedidoAdapter itemPedidoAdapter) {
-        this.clienteAdpter = clienteAdpter;
+    public PedidoAdapter(PagamentoAdapter pagamentoAdapter, ItemPedidoAdapter itemPedidoAdapter) {
+        this.clienteAdpter = new ClienteAdapter();
         this.pagamentoAdapter = pagamentoAdapter;
         this.itemPedidoAdapter = itemPedidoAdapter;
     }

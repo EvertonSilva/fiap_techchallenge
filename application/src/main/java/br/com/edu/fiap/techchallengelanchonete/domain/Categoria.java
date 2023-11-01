@@ -1,6 +1,5 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
-import br.com.edu.fiap.techchallengelanchonete.adapter.CategoriaAdapter;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import lombok.*;
 

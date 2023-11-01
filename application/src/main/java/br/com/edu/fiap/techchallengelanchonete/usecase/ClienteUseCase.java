@@ -22,10 +22,6 @@ public class ClienteUseCase {
         this.clienteRepository = clienteRepository;
     }
 
-    public ClienteNulo semIdentificacaoCliente() {
-        return new ClienteNulo();
-    }
-
     public Cliente salvaCliente(Cliente cliente) {
         Cliente clienteExiste = this.clienteRepository.buscaCPF(cliente.getCpf());
         if (clienteExiste.getId() != null)

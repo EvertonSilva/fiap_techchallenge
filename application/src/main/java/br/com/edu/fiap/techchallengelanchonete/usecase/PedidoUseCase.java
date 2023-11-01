@@ -1,5 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
@@ -15,6 +17,9 @@ public class PedidoUseCase {
     }
 
     public Pedido registraPedido(Pedido pedido) {
+        if (pedido.getCliente() == null)
+            pedido.setCliente(new ClienteNulo());
+
         return this.pedidoRepository.registraPedido(pedido);
     }
 

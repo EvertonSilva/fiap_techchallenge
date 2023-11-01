@@ -23,10 +23,29 @@ public class PedidoUseCase {
 
     public List<Pedido> listaPedidosPorStatus(String status) {
         try {
-            StatusPedido statusPedido = Enum.valueOf(StatusPedido.class, status);
+            StatusPedido statusPedido = getStatusPedido(status);
             return pedidoRepository.listaPedidosPorStatus(statusPedido);
         } catch (IllegalArgumentException ex) {
             throw  new RuntimeException("Status não existe");
         }
+    }
+
+    public Pedido atualizaStatusPedido(Long idPedido, String status) {
+        try {
+            var pedido = pedidoRepository.pedidoPorId(idPedido);
+            StatusPedido statusPedido = getStatusPedido(status);
+
+            // TODO validar se pedido pode "avançar" para o status recebido
+            pedido.setStatus(statusPedido);
+            pedidoRepository.registraPedido(pedido);
+
+            return pedido;
+        } catch (IllegalArgumentException ex) {
+            throw  new RuntimeException("Status não existe");
+        }
+    }
+
+    private StatusPedido getStatusPedido(String status) {
+        return Enum.valueOf(StatusPedido.class, status.toUpperCase());
     }
 }

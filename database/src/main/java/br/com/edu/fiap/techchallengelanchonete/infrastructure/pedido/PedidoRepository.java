@@ -1,7 +1,9 @@
 package br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PedidoRepository extends JpaRepository<PedidoModel, Long> {
     /*
     @@Query("SELECT p.status AS status, p.itens AS itens FROM Pedido p")

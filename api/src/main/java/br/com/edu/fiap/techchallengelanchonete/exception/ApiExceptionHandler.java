@@ -20,6 +20,16 @@ public class ApiExceptionHandler {
         );
     }
 
+    @ExceptionHandler(ApplicationException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage applicationException(ApplicationException ex, WebRequest request) {
+        return new ErrorMessage(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage globalException(Exception ex, WebRequest request) {

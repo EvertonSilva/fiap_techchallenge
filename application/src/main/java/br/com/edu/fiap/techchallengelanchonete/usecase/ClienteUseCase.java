@@ -23,7 +23,7 @@ public class ClienteUseCase {
     }
 
     public ClienteNulo semIdentificacaoCliente() {
-        return new ClienteNulo(new Id(0), new Nome("ClienteNulo"), new Email("nulo@nulo"), new CPF("00000000000"));
+        return new ClienteNulo(new Id(Long.valueOf(0)), new Nome("ClienteNulo"), new Email("nulo@nulo"), new CPF("00000000000"));
     }
 
     public Cliente salvaCliente(Cliente cliente) {

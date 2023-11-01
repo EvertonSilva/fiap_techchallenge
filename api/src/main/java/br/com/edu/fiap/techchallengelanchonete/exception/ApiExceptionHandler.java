@@ -10,6 +10,15 @@ import java.util.Date;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(NotFoundResourceException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage notFoundException(NotFoundResourceException ex, WebRequest request) {
+        return new ErrorMessage(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

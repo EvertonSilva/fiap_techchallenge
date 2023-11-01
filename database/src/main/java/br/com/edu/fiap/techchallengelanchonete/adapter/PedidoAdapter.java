@@ -3,7 +3,7 @@ package br.com.edu.fiap.techchallengelanchonete.adapter;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.PedidoModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

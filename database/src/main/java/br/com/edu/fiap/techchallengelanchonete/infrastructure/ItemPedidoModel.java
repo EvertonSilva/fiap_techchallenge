@@ -1,5 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.infrastructure;
 
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoModel;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -6,7 +6,7 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
 import org.springframework.stereotype.Component;
 
 @Component

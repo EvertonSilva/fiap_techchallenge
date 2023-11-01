@@ -1,6 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido;
 
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.DomainObject;
 import jakarta.persistence.*;
 import lombok.Data;

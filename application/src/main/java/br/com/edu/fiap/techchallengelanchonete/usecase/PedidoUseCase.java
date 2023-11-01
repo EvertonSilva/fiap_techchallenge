@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
+import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
 
 import java.util.List;
@@ -18,5 +19,14 @@ public class PedidoUseCase {
 
     public List<Pedido> listaPedidos() {
         return this.pedidoRepository.listaPedidos();
+    }
+
+    public List<Pedido> listaPedidosPorStatus(String status) {
+        try {
+            StatusPedido statusPedido = Enum.valueOf(StatusPedido.class, status);
+            return pedidoRepository.listaPedidosPorStatus(statusPedido);
+        } catch (IllegalArgumentException ex) {
+            throw  new RuntimeException("Status não existe");
+        }
     }
 }

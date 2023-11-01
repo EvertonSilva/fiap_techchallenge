@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,10 @@ public class PedidoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> pedidos() {
-        return ResponseEntity.ok(pedidoUseCase.listaPedidos());
+    public ResponseEntity<List<Pedido>> pedidos(@RequestParam(name = "status", required = false) String status) {
+
+        return status == null ?
+                ResponseEntity.ok(pedidoUseCase.listaPedidos()) :
+                ResponseEntity.ok(pedidoUseCase.listaPedidosPorStatus(status));
     }
 }

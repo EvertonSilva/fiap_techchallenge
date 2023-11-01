@@ -1,20 +1,27 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# FIAP Tech Challenge | Pós Tech
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Projeto de Gestão de Pedidos para uma lanchonete desenvolvido para avaliação do curso de Pós-graduação em Arquitetura de Software da FIAP.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Por onde começar
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+A stack definida para este projeto foi a seguinte:
+- Java v17
+- Postgres v16.0
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+O projeto está configurado para ser executado através de containers Docker. Para facilitar o processo de subir todo o ambiente necessário estamos utilizando o _docker compose_, então para subir a aplicação basta executar o seguinte comando: 
+
+```sh
+docker compose up -d
+```
+
+A primeira vez que o comando for executado pode demorar um pouco pois o docker precisa baixar as imagens utilizadas nos containers, mas feito isso a aplicação estará disponível em `localhost:8080/api` 
+
+# Documentação com Swagger
+
+A documentação dos endpoints da API pode ser consultada através da seguinte url: `localhost:8080/api/swagger-ui/index.html`
+
+# Estrutura do Projeto
+
+Com o intuito de tornar a separação de responsabilidades um pouco mais "óbvia" o projeto foi subdividido em três módulos principais: **api**, **application** e **database**. O _módulo api_ é o responsável por inicializar todo o projeto, é aquele que contém a classe "Main" carregada pelo Spring, 
+e tem como objetivo prover a interface de entrada/saída para os consumidores da API. O _módulo database_, como o nome sugere, está responsável pela interação com banco de dados e nesse módulo estão todas as classes responsáveis por efetuar as operações de CRUD. Por fim
+_o módulo application_ é onde estão implementadas as características do negócio, nesse caso, tudo o que descreve a lanchonete usada no desafio.

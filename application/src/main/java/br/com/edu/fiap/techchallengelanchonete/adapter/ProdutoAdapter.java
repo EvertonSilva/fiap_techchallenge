@@ -52,12 +52,4 @@ public class ProdutoAdapter implements IAdapter<Produto, ProdutoModel> {
 
         return produtoModel;
     }
-
-    public void setUpdate(Produto produto, ProdutoModel produtoModel) {
-        produtoModel.setNome(produto.getNome().getValor());
-        produtoModel.setDescricao(produto.getDescricao().getValor());
-        produtoModel.setPreco(produto.getPreco().getValor());
-        produtoModel.setCategoria(this.categoriaAdapter.toModel(produto.getCategoria()));
-    }
-
 }

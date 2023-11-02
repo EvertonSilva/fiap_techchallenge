@@ -1,0 +1,1 @@
+INSERT INTO categorias (id, data_criacao, data_atualizacao, nome) VALUES (1, current_timestamp, current_timestamp, 'LANCHE'), (2, current_timestamp, current_timestamp, 'ACOMPANHAMENTO'), (3, current_timestamp, current_timestamp, 'BEBIDA'), (4, current_timestamp, current_timestamp, 'SOBREMESA');

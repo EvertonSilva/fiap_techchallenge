@@ -26,7 +26,7 @@ public class ProdutoUseCase {
             categoriaExistente = categoriaBuscada.getId() != null;
         }
 
-        if (!categoriaInformada || categoriaExistente)
+        if (!categoriaInformada || !categoriaExistente)
             throw new ApplicationException("Categoria não existe!");
 
         return produtoPersistence.cadastro(produto);

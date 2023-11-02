@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
+import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteAdpterJPA;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoAdapterJPA;
@@ -38,8 +39,8 @@ public class PedidoController {
                 ResponseEntity.ok(pedidoUseCase.listaPedidosPorStatus(status));
     }
 
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<Pedido> atualizaStatusPedido(@PathVariable Long id, @RequestBody String status) {
+    @PatchMapping("/{id}/status/{status}")
+    public ResponseEntity<Pedido> atualizaStatusPedido(@PathVariable Long id, @PathVariable String status) {
         System.out.println(MessageFormat.format("{0} -> {1}", id, status));
         return ResponseEntity.ok(pedidoUseCase.atualizaStatusPedido(id, status));
     }

@@ -5,14 +5,19 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString
 public class Cliente extends DomainObject implements ICliente {
     private Nome nome;
     private Email email;
+
+    @NotNull
     private CPF cpf;
 
     public Cliente(){

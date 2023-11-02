@@ -37,6 +37,23 @@ public class Pedido extends DomainObject {
         return valor;
     }
 
+    public boolean validaProximoStatus(StatusPedido status) {
+        var recebidoValido =
+                this.status == StatusPedido.AGUARDANDO_PAGAMENTO
+                        && status == StatusPedido.RECEBIDO;
+        var emPreparacaoValido =
+                this.status == StatusPedido.RECEBIDO
+                        && status == StatusPedido.EM_PREPARACAO;
+        var prontoValido =
+                this.status == StatusPedido.EM_PREPARACAO
+                        && status == StatusPedido.PRONTO;
+        var finalizadoValido =
+                this.status == StatusPedido.PRONTO
+                        && status == StatusPedido.FINALIZADO;
+
+        return recebidoValido || emPreparacaoValido || prontoValido || finalizadoValido;
+    }
+
     public void confirmaPagamento(StatusPagamento status) {
         this.pagamento.setStatus(status);
     }

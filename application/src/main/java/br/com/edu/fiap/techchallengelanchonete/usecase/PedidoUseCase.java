@@ -1,36 +1,83 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
-import br.com.edu.fiap.techchallengelanchonete.adapter.*;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
+import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.PedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
+import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
 public class PedidoUseCase {
+    private IPedidoPersistence pedidoPersistence;
+    private IProdutoPersistence produtoPersistence;
+    private IClientePersistence clientePersistence;
 
-    private PedidoRepository pedidoRepository;
-    private PedidoAdapter pedidoAdapter;
-
-    @Autowired
-    public PedidoUseCase(PedidoRepository pedidoRepository, PedidoAdapter pedidoAdapter) {
-        this.pedidoRepository = pedidoRepository;
-        this.pedidoAdapter = pedidoAdapter;
+    public PedidoUseCase(IPedidoPersistence pedidoPersistence, IProdutoPersistence produtoPersistence, IClientePersistence clientePersistence) {
+        this.pedidoPersistence = pedidoPersistence;
+        this.produtoPersistence = produtoPersistence;
+        this.clientePersistence = clientePersistence;
     }
 
     public Pedido registraPedido(Pedido pedido) {
-        var pedidoModel = this.pedidoAdapter.toModel(pedido);
-        pedidoModel.getItens().stream().forEach(x -> x.setPedido(pedidoModel));
+        if (!protudosExistentes(pedido))
+            throw new ApplicationException("Produto(s) inexistente(s)!");
+        if (pedido.getCliente() != null && pedido.getCliente().getId() != null)
+        {
+            var clienteExistente = this.clientePersistence.buscaId(pedido.getCliente().getId().getValor());
+            if (clienteExistente instanceof ClienteNulo)
+                throw new ApplicationException("Cliente inexistente!");
+        }
 
-        return this.pedidoAdapter.toDomain(this.pedidoRepository.save(pedidoModel));
+        if (pedido.getCliente() == null)
+            pedido.setCliente(new ClienteNulo());
+
+        return this.pedidoPersistence.registraPedido(pedido);
     }
 
     public List<Pedido> listaPedidos() {
-        var pedidosModel = this.pedidoRepository.findAll();
+        return this.pedidoPersistence.listaPedidos();
+    }
 
-        return pedidosModel.stream().map(x -> this.pedidoAdapter.toDomain(x)).collect(Collectors.toList());
+    public List<Pedido> listaPedidosPorStatus(String status) {
+        StatusPedido statusPedido = getStatusPedido(status);
+        return pedidoPersistence.listaPedidosPorStatus(statusPedido);
+    }
+
+    public Pedido atualizaStatusPedido(Long idPedido, String status) {
+        var pedido = pedidoPersistence.pedidoPorId(idPedido);
+        StatusPedido statusPedido = getStatusPedido(status);
+
+        if (!pedido.validaProximoStatus(statusPedido))
+            throw new ApplicationException("Status incoerente!");
+
+        pedido.setStatus(statusPedido);
+        pedidoPersistence.registraPedido(pedido);
+
+        return pedido;
+    }
+
+    private StatusPedido getStatusPedido(String status) {
+        try {
+            return Enum.valueOf(StatusPedido.class, status.toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw  new ApplicationException("Status não existe");
+        }
+    }
+
+    private boolean protudosExistentes(Pedido pedido) {
+        var produtosExistentes =
+                !pedido.getItens().isEmpty()
+                        && pedido.getItens().stream().allMatch(x -> x.getProduto() != null);
+
+        for (ItemPedido item: pedido.getItens()) {
+            var produtoBuscado = this.produtoPersistence.buscaId(item.getProduto().getId().getValor());
+            produtosExistentes &= produtoBuscado.isPresent();
+        }
+
+        return produtosExistentes;
     }
 }

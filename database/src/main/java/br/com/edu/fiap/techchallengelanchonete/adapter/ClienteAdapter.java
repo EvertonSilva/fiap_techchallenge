@@ -1,11 +1,12 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
+import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.CPF;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.ClienteModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,7 @@ public class ClienteAdapter implements IAdapter<Cliente, ClienteModel> {
     @Override
     public Cliente toDomain(ClienteModel clienteModel) {
         if (clienteModel == null)
-            return null;
+            return new ClienteNulo();
 
         return new Cliente(new Id(clienteModel.getId()),
                 new Nome(clienteModel.getNome()),

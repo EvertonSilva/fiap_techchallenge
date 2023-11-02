@@ -1,4 +1,4 @@
-package br.com.edu.fiap.techchallengelanchonete.infrastructure;
+package br.com.edu.fiap.techchallengelanchonete.infrastructure.produto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

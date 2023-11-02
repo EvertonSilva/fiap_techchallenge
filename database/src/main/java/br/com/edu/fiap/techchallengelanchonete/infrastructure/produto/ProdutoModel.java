@@ -1,5 +1,7 @@
-package br.com.edu.fiap.techchallengelanchonete.infrastructure;
+package br.com.edu.fiap.techchallengelanchonete.infrastructure.produto;
 
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.categoria.CategoriaModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.DomainObject;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

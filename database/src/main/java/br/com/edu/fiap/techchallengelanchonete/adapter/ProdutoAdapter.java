@@ -5,7 +5,7 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Descricao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.ProdutoModel;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

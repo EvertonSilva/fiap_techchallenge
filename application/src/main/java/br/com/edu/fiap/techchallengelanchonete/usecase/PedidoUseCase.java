@@ -5,6 +5,7 @@ import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 
@@ -13,15 +14,23 @@ import java.util.List;
 public class PedidoUseCase {
     private IPedidoPersistence pedidoPersistence;
     private IProdutoPersistence produtoPersistence;
+    private IClientePersistence clientePersistence;
 
-    public PedidoUseCase(IPedidoPersistence pedidoPersistence, IProdutoPersistence produtoPersistence) {
+    public PedidoUseCase(IPedidoPersistence pedidoPersistence, IProdutoPersistence produtoPersistence, IClientePersistence clientePersistence) {
         this.pedidoPersistence = pedidoPersistence;
         this.produtoPersistence = produtoPersistence;
+        this.clientePersistence = clientePersistence;
     }
 
     public Pedido registraPedido(Pedido pedido) {
         if (!protudosExistentes(pedido))
             throw new ApplicationException("Produto(s) inexistente(s)!");
+        if (pedido.getCliente() != null && pedido.getCliente().getId() != null)
+        {
+            var clienteExistente = this.clientePersistence.buscaId(pedido.getCliente().getId().getValor());
+            if (clienteExistente instanceof ClienteNulo)
+                throw new ApplicationException("Cliente inexistente!");
+        }
 
         if (pedido.getCliente() == null)
             pedido.setCliente(new ClienteNulo());

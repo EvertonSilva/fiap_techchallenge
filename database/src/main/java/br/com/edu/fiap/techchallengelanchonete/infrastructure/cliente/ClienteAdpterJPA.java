@@ -32,4 +32,12 @@ public class ClienteAdpterJPA implements IClientePersistence {
         return  optionalClienteModel.isPresent() ?
                 clienteAdapter.toDomain(optionalClienteModel.get()) : new ClienteNulo();
     }
+
+    @Override
+    public Cliente buscaId(Long id) {
+        var optionalClienteModel = clienteRepository.findById(id);
+
+        return  optionalClienteModel.isPresent() ?
+                clienteAdapter.toDomain(optionalClienteModel.get()) : new ClienteNulo();
+    }
 }

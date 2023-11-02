@@ -1,6 +1,7 @@
 package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteAdpterJPA;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.usecase.PedidoUseCase;
@@ -20,8 +21,8 @@ public class PedidoController {
     private PedidoUseCase pedidoUseCase;
 
     @Autowired
-    public PedidoController (PedidoAdapterJPA pedidoAdapterJPA, ProdutoAdapterJPA produtoAdapterJPA) {
-        this.pedidoUseCase = new PedidoUseCase(pedidoAdapterJPA, produtoAdapterJPA);
+    public PedidoController (PedidoAdapterJPA pedidoAdapterJPA, ProdutoAdapterJPA produtoAdapterJPA, ClienteAdpterJPA clienteAdpterJPA) {
+        this.pedidoUseCase = new PedidoUseCase(pedidoAdapterJPA, produtoAdapterJPA, clienteAdpterJPA);
     }
 
     @PostMapping

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,6 +23,8 @@ public class PedidoModel extends DomainObject {
     private String statusPagamento;
     @Column
     private String statusPedido;
+    @Column
+    private Date data;
 
     public PedidoModel() {
         this.itens = new ArrayList<>();

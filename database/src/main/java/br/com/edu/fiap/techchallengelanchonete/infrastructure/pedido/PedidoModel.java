@@ -22,6 +22,8 @@ public class PedidoModel extends DomainObject {
     private String statusPagamento;
     @Column
     private String statusPedido;
+    @Column
+    private String codigo;
 
     public PedidoModel() {
         this.itens = new ArrayList<>();

@@ -9,7 +9,9 @@ import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistenc
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidoUseCase {
     private IPedidoPersistence pedidoPersistence;
@@ -39,7 +41,23 @@ public class PedidoUseCase {
     }
 
     public List<Pedido> listaPedidos() {
-        return this.pedidoPersistence.listaPedidos();
+        List<Pedido> pedidos = pedidoPersistence.listaPedidos();
+        pedidos.sort(Comparator
+            .comparing((Pedido pedido) -> {
+                switch (pedido.getStatus()) {
+                    case RECEBIDO: return 0;
+                    case EM_PREPARACAO: return 1;
+                    case PRONTO: return 2;
+                    default: return 3;
+                }
+            })
+            .thenComparing(pedido -> pedido.getData().getValor()));
+
+        pedidos = pedidos.stream()
+            .filter(pedido -> pedido.getStatus() != StatusPedido.FINALIZADO && pedido.getStatus() != StatusPedido.AGUARDANDO_PAGAMENTO)
+            .collect(Collectors.toList());
+
+        return pedidos;
     }
 
     public List<Pedido> listaPedidosPorStatus(String status) {

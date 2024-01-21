@@ -1,16 +1,17 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
-import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Codigo;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataCriacao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
@@ -40,6 +41,7 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
         pedido.setPagamento(pagamentoAdapter.toDomain(pedidoModel.getStatusPagamento()));
         pedido.setItens(pedidoModel.getItens().stream().map(x -> itemPedidoAdapter.toDomain(x)).collect(Collectors.toList()));
         pedido.setCodigo(new Codigo(pedidoModel.getCodigo()));
+        pedido.setData(new DataCriacao(pedidoModel.getDataCriacao()));
 
         return pedido;
     }

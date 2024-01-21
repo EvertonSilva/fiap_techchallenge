@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.domain;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Codigo;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataCriacao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Pedido extends DomainObject {
     private Pagamento pagamento;
     private StatusPedido status;
     private Codigo codigo;
+    private DataCriacao data;
 
     public Pedido() {
         this.codigo = new Codigo();

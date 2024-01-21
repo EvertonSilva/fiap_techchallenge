@@ -22,7 +22,8 @@ public class ClienteAdpterJPA implements IClientePersistence {
 
     @Override
     public Cliente cadastro(Cliente cliente) {
-        return clienteAdapter.toDomain(this.clienteRepository.save(clienteAdapter.toModel(cliente)));
+        var clienteModel = clienteAdapter.toModel(cliente);
+        return clienteAdapter.toDomain(this.clienteRepository.save(clienteModel));
     }
 
     @Override

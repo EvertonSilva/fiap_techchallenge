@@ -1,17 +1,15 @@
 package br.com.edu.fiap.techchallengelanchonete.usecase;
 
+import br.com.edu.fiap.techchallengelanchonete.domain.*;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
-import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
-import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
-import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
+import br.com.edu.fiap.techchallengelanchonete.exception.NotFoundResourceException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IPedidoPersistence;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class PedidoUseCase {
     private IPedidoPersistence pedidoPersistence;
@@ -27,6 +25,7 @@ public class PedidoUseCase {
     public Pedido registraPedido(Pedido pedido) {
         if (!protudosExistentes(pedido))
             throw new ApplicationException("Produto(s) inexistente(s)!");
+
         if (pedido.getCliente() != null && pedido.getCliente().getId() != null)
         {
             var clienteExistente = this.clientePersistence.buscaId(pedido.getCliente().getId().getValor());
@@ -40,50 +39,29 @@ public class PedidoUseCase {
         return this.pedidoPersistence.registraPedido(pedido);
     }
 
-    public List<Pedido> listaPedidos() {
-        List<Pedido> pedidos = pedidoPersistence.listaPedidos();
-        pedidos.sort(Comparator
-            .comparing((Pedido pedido) -> {
-                switch (pedido.getStatus()) {
-                    case RECEBIDO: return 0;
-                    case EM_PREPARACAO: return 1;
-                    case PRONTO: return 2;
-                    default: return 3;
-                }
-            })
-            .thenComparing(pedido -> pedido.getData().getValor()));
-
-        pedidos = pedidos.stream()
-            .filter(pedido -> pedido.getStatus() != StatusPedido.FINALIZADO && pedido.getStatus() != StatusPedido.AGUARDANDO_PAGAMENTO)
-            .collect(Collectors.toList());
-
-        return pedidos;
+    public List<Pedido> listaPedidos(Optional<StatusPedido> status) {
+        return status
+                .map(s -> pedidoPersistence.listaPedidosPorStatus(s))
+                .orElseGet(() -> {
+                    List<Pedido> pedidos = pedidoPersistence.listaPedidos();
+                    return Pedido.ordenarListagem(pedidos);
+                });
     }
 
-    public List<Pedido> listaPedidosPorStatus(String status) {
-        StatusPedido statusPedido = getStatusPedido(status);
-        return pedidoPersistence.listaPedidosPorStatus(statusPedido);
-    }
+    public Pedido atualizaStatusPedido(Long idPedido, StatusPedido status) {
+        var optionalPedido = pedidoPersistence.pedidoPorId(idPedido);
 
-    public Pedido atualizaStatusPedido(Long idPedido, String status) {
-        var pedido = pedidoPersistence.pedidoPorId(idPedido);
-        StatusPedido statusPedido = getStatusPedido(status);
+        if (!optionalPedido.isPresent())
+            throw new NotFoundResourceException("Pedido não encontrado!");
 
-        if (!pedido.validaProximoStatus(statusPedido))
+        var pedido = optionalPedido.get();
+        if (!pedido.validaProximoStatus(status))
             throw new ApplicationException("Status incoerente!");
 
-        pedido.setStatus(statusPedido);
+        pedido.setStatus(status);
         pedidoPersistence.registraPedido(pedido);
 
         return pedido;
-    }
-
-    private StatusPedido getStatusPedido(String status) {
-        try {
-            return Enum.valueOf(StatusPedido.class, status.toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            throw  new ApplicationException("Status não existe");
-        }
     }
 
     private boolean protudosExistentes(Pedido pedido) {

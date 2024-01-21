@@ -1,9 +1,9 @@
 package br.com.edu.fiap.techchallengelanchonete.adapter;
 
-import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Codigo;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataCriacao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
@@ -40,7 +40,8 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
         pedido.setStatus(StatusPedido.valueOf(pedidoModel.getStatusPedido()));
         pedido.setPagamento(pagamentoAdapter.toDomain(pedidoModel.getStatusPagamento()));
         pedido.setItens(pedidoModel.getItens().stream().map(x -> itemPedidoAdapter.toDomain(x)).collect(Collectors.toList()));
-        pedido.setData(new DataCriacao(pedidoModel.getData()));
+        pedido.setCodigo(new Codigo(pedidoModel.getCodigo()));
+        pedido.setData(new DataCriacao(pedidoModel.getDataCriacao()));
 
         return pedido;
     }
@@ -63,7 +64,7 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
         pedidoModel.setStatusPedido(pedido.getStatus().toString());
         pedidoModel.setStatusPagamento(pagamentoAdapter.toModel(pedido.getPagamento()));
         pedidoModel.setItens(pedido.getItens().stream().map(x -> itemPedidoAdapter.toModel(x)).collect(Collectors.toList()));
-        pedidoModel.setData(new Date());
+        pedidoModel.setCodigo(pedido.getCodigo().getValor());
 
         return pedidoModel;
     }

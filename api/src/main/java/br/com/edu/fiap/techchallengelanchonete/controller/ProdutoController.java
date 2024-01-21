@@ -24,27 +24,26 @@ public class ProdutoController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
-        System.out.println(produto.toString());
-        return new ResponseEntity<Produto>
-                (produtoUseCase.saveProduto(produto),
-                        HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(produtoUseCase.salvaProduto(produto));
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Produto>> getAllProdutos(
             @RequestParam(value = "categoria", required = false) String descricaoCategoria) {
-
-        return descricaoCategoria == null ?
-                ResponseEntity.ok().body(produtoUseCase.getAllProdutos()) :
-                ResponseEntity.ok().body(produtoUseCase.getProdutoByCategoria(descricaoCategoria));
+        return ResponseEntity
+                .ok()
+                .body(produtoUseCase.listaProdutos(descricaoCategoria));
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity<Produto> getById(@PathVariable Long id) {
-        var produto = produtoUseCase.getProdutoById(id);
+        var produto = produtoUseCase.buscaPorId(id);
 
-        return produto != null ?
-                ResponseEntity.ok(produto) : ResponseEntity.notFound().build();
+        return produto
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

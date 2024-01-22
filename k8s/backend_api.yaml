@@ -1,0 +1,80 @@
+# deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backendapi-dep
+  labels:
+    app: backendapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backendapi
+  template:
+    metadata:
+      labels:
+        app: backendapi
+    spec:
+      containers:
+      - name: backendapi-ctn
+        image: evsilva/techchallenge_fiap-api:1.0.0
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 8080
+            name: http-web
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: db-config
+                key: DATABASE_URL
+          - name: DATABASE_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: db-config
+                key: DATABASE_USERNAME
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: DATABASE_PASSWORD
+
+---
+# hpa
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backendapi-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backendapi-dep
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: backendapi-svc
+spec:
+  type: NodePort
+  selector:
+    app: backendapi
+  ports:
+    - name: http
+      port: 80
+      targetPort: http-web
+      nodePort: 30808

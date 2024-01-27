@@ -26,6 +26,8 @@ spec:
           - containerPort: 8080
             name: http-web
         env:
+          - name: SPRING_PROFILE
+            value: prod
           - name: DATABASE_URL
             valueFrom:
               configMapKeyRef:

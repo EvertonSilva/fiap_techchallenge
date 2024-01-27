@@ -34,6 +34,7 @@ public class Pedido extends DomainObject {
         this.pagamento = new Pagamento(StatusPagamento.AGUARDANDO);
         this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
         this.itens = new ArrayList<>();
+        this.data = new DataCriacao();
     }
 
     public static List<Pedido> ordenarListagem(List<Pedido> pedidos) {

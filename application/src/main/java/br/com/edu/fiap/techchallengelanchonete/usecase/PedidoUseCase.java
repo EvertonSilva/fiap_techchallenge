@@ -79,6 +79,10 @@ public class PedidoUseCase {
         this.atualizaPedido(pedido);
     }
 
+    public Optional<Pedido> buscaPorId(Long idPedido) {
+        return pedidoPersistence.pedidoPorId(idPedido);
+    }
+
     public List<Pedido> listaPedidos(Optional<StatusPedido> status) {
         return status
                 .map(s -> pedidoPersistence.listaPedidosPorStatus(s))

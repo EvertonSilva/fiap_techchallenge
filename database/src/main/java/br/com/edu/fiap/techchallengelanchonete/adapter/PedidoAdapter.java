@@ -65,6 +65,7 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
         pedidoModel.setStatusPagamento(pagamentoAdapter.toModel(pedido.getPagamento()));
         pedidoModel.setItens(pedido.getItens().stream().map(x -> itemPedidoAdapter.toModel(x)).collect(Collectors.toList()));
         pedidoModel.setCodigo(pedido.getCodigo().getValor());
+        pedidoModel.setDataCriacao(pedido.getData().getValor());
 
         return pedidoModel;
     }

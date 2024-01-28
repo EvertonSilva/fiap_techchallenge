@@ -65,4 +65,11 @@ public class PedidoAdapterJPA implements IPedidoPersistence {
         var pedidoModel = this.adapter.toModel(pedido);
         return this.adapter.toDomain(this.repository.save(pedidoModel));
     }
+
+    @Override
+    public Optional<Pedido> consultaPedidoPorCodigo(String codigoPedido) {
+        return this.repository
+                .findByCodigo(codigoPedido)
+                .map(adapter::toDomain);
+    }
 }

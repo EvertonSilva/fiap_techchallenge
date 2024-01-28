@@ -12,4 +12,5 @@ public interface IPedidoPersistence {
     List<Pedido> listaPedidos();
     List<Pedido> listaPedidosPorStatus(StatusPedido status);
     Pedido atualizarPedido(Pedido pedido);
+    Optional<Pedido> consultaPedidoPorCodigo(String codigoPedido);
 }

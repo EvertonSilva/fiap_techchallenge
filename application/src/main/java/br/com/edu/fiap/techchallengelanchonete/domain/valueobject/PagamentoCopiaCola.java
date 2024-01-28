@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Email {
-    public static final String EMAIL_PAGAMENTO = "pagamento@techchallengelanchonete.com";
-
+public class PagamentoCopiaCola extends PagamentoPIX {
     private String valor;
 }

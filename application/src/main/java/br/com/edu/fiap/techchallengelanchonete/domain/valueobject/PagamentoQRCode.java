@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QRCodePagamento {
+public class PagamentoQRCode extends PagamentoPIX {
     private String valor;
 }

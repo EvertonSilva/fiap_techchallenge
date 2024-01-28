@@ -2,9 +2,6 @@ package br.com.edu.fiap.techchallengelanchonete.controller;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteAdpterJPA;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido.PedidoAdapterJPA;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoAdapterJPA;
 import br.com.edu.fiap.techchallengelanchonete.usecase.PedidoUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +15,8 @@ import java.util.Optional;
 public class PedidoController {
     private PedidoUseCase pedidoUseCase;
 
-    public PedidoController (PedidoAdapterJPA pedidoAdapterJPA, ProdutoAdapterJPA produtoAdapterJPA,
-                             ClienteAdpterJPA clienteAdpterJPA) {
-        this.pedidoUseCase = new PedidoUseCase(pedidoAdapterJPA, produtoAdapterJPA, clienteAdpterJPA);
+    public PedidoController (PedidoUseCase pedidoUseCase) {
+        this.pedidoUseCase = pedidoUseCase;
     }
 
     @PostMapping

@@ -31,7 +31,7 @@ public class Pedido extends DomainObject {
         this.codigo = new Codigo();
         this.codigo.gerarCodigo();
 
-        this.pagamento = new Pagamento(StatusPagamento.AGUARDANDO);
+        this.pagamento = new Pagamento();
         this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
         this.itens = new ArrayList<>();
     }
@@ -60,19 +60,22 @@ public class Pedido extends DomainObject {
         return pedidosOrdenados;
     }
 
-    public Valor getValor() {
-        Valor valor = new Valor(new BigDecimal(0));
+    public Valor getValorTotal() {
+        Valor valorTotal = new Valor(new BigDecimal(0));
 
         for (ItemPedido item: itens) {
-            valor.getValor().add(item.getValor().getValor());
+            var subTotal = item.getSubTotal().getValor();
+            var valorTotalAtualizado = valorTotal.getValor().add(subTotal);
+            valorTotal.setValor(valorTotalAtualizado);
         }
 
-        return valor;
+        return valorTotal;
     }
 
     public boolean validaProximoStatus(StatusPedido status) {
         var recebidoValido =
                 this.status == StatusPedido.AGUARDANDO_PAGAMENTO
+                        && this.getPagamento().getStatus() == StatusPagamento.APROVADO
                         && status == StatusPedido.RECEBIDO;
         var emPreparacaoValido =
                 this.status == StatusPedido.RECEBIDO
@@ -83,8 +86,14 @@ public class Pedido extends DomainObject {
         var finalizadoValido =
                 this.status == StatusPedido.PRONTO
                         && status == StatusPedido.FINALIZADO;
+        var canceladoValido =
+                (this.status == StatusPedido.AGUARDANDO_PAGAMENTO
+                    || this.status == StatusPedido.RECEBIDO
+                    || this.status == StatusPedido.EM_PREPARACAO
+                    || this.status == StatusPedido.PRONTO)
+                        && status == StatusPedido.CANCELADO;
 
-        return recebidoValido || emPreparacaoValido || prontoValido || finalizadoValido;
+        return recebidoValido || emPreparacaoValido || prontoValido || finalizadoValido || canceladoValido;
     }
 
     public void confirmaPagamento(StatusPagamento status) {

@@ -17,11 +17,20 @@ spec:
     spec:
       containers:
       - name: backendapi-ctn
-        image: evsilva/techchallenge_fiap-api:1.0.0
+        image: evsilva/techchallenge_fiap-api:1.0.1
         resources:
           limits:
             memory: "512Mi"
             cpu: "500m"
+        livenessProbe:
+          httpGet: &http
+            path: /api/health
+            port: http-web
+          initialDelaySeconds: 30
+        startupProbe:
+          httpGet: *http
+          failureThreshold: 5
+          periodSeconds: 10
         ports:
           - containerPort: 8080
             name: http-web

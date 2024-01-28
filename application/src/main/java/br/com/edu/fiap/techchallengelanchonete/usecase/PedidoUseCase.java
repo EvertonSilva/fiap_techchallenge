@@ -47,9 +47,8 @@ public class PedidoUseCase {
             pedido.setCliente(new ClienteNulo());
         }
 
+        this.gatewayPagamentoRegistrador.registroPagamento(pedido);
         var pedidoRegistrado = this.pedidoPersistence.registraPedido(pedido);
-
-        this.gatewayPagamentoRegistrador.registroPagamento(pedidoRegistrado);
 
         return pedidoRegistrado;
     }

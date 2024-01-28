@@ -18,6 +18,9 @@ public class Pagamento {
 
     public Pagamento() {
         this.status = StatusPagamento.AGUARDANDO;
+        this.dataExpiracaoPagamento = new DataExpiracaoPagamento();
+        this.pixCopiaECola = new PagamentoCopiaCola();
+        this.pixQRCode64 = new PagamentoQRCode();
     }
 
     public Pagamento(DataExpiracaoPagamento dataExpiracaoPagamento, PagamentoCopiaCola pixCopiaECola, PagamentoQRCode pixQRCode64) {

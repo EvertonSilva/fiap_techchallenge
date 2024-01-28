@@ -38,6 +38,14 @@ public class PedidoController {
         return ResponseEntity
                 .ok(pedidoUseCase.listaPedidos(status));
     }
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Pedido> pedido(@PathVariable Long id) {
+        var pedido = pedidoUseCase.buscaPorId(id);
+
+        return pedido
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @PatchMapping("/{id}/status/{status}")
     public ResponseEntity<Pedido> atualizaStatusPedido(@PathVariable Long id, @PathVariable String status) {

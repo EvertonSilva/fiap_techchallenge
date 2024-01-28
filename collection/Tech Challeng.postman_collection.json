@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ab206419-09a2-4c44-b551-001fa5d6b997",
+		"_postman_id": "4e6dc8a7-d035-4601-946d-ccfb80c58929",
 		"name": "Tech Challeng",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "3495153"
+		"_exporter_id": "3513120",
+		"_collection_link": "https://solar-equinox-274366.postman.co/workspace/Muralis~8990c545-13cc-4747-a3b7-580ec57913db/collection/3513120-4e6dc8a7-d035-4601-946d-ccfb80c58929?action=share&source=collection_link&creator=3513120"
 	},
 	"item": [
 		{
@@ -42,7 +43,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/produtos",
+							"raw": "http://{{host}}/api/produtos?categoria=Lanche",
 							"protocol": "http",
 							"host": [
 								"{{host}}"
@@ -50,6 +51,12 @@
 							"path": [
 								"api",
 								"produtos"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "Lanche"
+								}
 							]
 						}
 					},
@@ -65,6 +72,15 @@
 									"pm.test(\"Cadastro de produto com categoria errada - Status code 400\", function(){\r",
 									"    pm.response.to.have.status(400);\r",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -244,9 +260,25 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"var id = responseBody.id.valor;\r",
+									"var cpf = responseBody.cpf.valor;\r",
+									"\r",
+									"pm.environment.set(\"id-cliente\", id);\r",
+									"pm.environment.set(\"cpf-cliente\", cpf);\r",
+									"\r",
 									"pm.test(\"Cadastro de cliente - Status code 201\", function(){\r",
 									"    pm.response.to.have.status(201);\r",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"cpf-cliente\", \"{{$randomInt}}\");"
 								],
 								"type": "text/javascript"
 							}
@@ -257,7 +289,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"João Maria\",\r\n    \"email\": \"joao.maria@email.com\",\r\n    \"cpf\": \"02100820036\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"João Maria\",\r\n    \"email\": \"joao.maria@email.com\",\r\n    \"cpf\": \"{{cpf-cliente}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,12 +297,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/clientes",
+							"raw": "http://{{host}}/api/clientes",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"clientes"
@@ -299,7 +330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"João Maria\",\r\n    \"email\": \"joao.maria@email.com\",\r\n    \"cpf\": \"02100820036\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"João Maria\",\r\n    \"email\": \"joao.maria@email.com\",\r\n    \"cpf\": \"{{cpf-cliente}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -307,12 +338,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/clientes",
+							"raw": "http://{{host}}/api/clientes",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"clientes"
@@ -334,6 +364,15 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"protocolProfileBehavior": {
@@ -352,12 +391,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/clientes?cpf=02100820036",
+							"raw": "http://{{host}}/api/clientes?cpf={{cpf-cliente}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"clientes"
@@ -365,7 +403,7 @@
 							"query": [
 								{
 									"key": "cpf",
-									"value": "02100820036"
+									"value": "{{cpf-cliente}}"
 								}
 							]
 						}
@@ -403,12 +441,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/clientes?cpf=11111111111",
+							"raw": "http://{{host}}/api/clientes?cpf=11111111111",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"clientes"
@@ -437,9 +474,10 @@
 								"exec": [
 									"var responseBody = pm.response.json();\r",
 									"var id = responseBody.id.valor;\r",
+									"var codigo = responseBody.codigo.valor;\r",
 									"\r",
 									"pm.environment.set(\"id-pedido\", id);\r",
-									"\r",
+									"pm.environment.set(\"codigo-pedido\", codigo);\r",
 									"\r",
 									"pm.test(\"Cadastro de pedido - Status code 201\", function(){\r",
 									"    pm.response.to.have.status(201);\r",
@@ -454,7 +492,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"produto\": {\r\n                \"id\": 1\r\n            },\r\n            \"quantidade\": 10\r\n        }\r\n    ],\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"itens\": [{\r\n        \"produto\": {\r\n            \"id\": {{id-produto}}\r\n        },\r\n        \"quantidade\": 10\r\n    }],\r\n    \"cliente\": {\r\n        \"id\": {{id-cliente}}\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -485,8 +523,10 @@
 								"exec": [
 									"var responseBody = pm.response.json();\r",
 									"var id = responseBody.id.valor;\r",
+									"var codigo = responseBody.codigo.valor;\r",
 									"\r",
 									"pm.environment.set(\"id-pedido\", id);\r",
+									"pm.environment.set(\"codigo-pedido\", codigo);\r",
 									"\r",
 									"pm.test(\"Cadastro de pedido sem cliente - Status code 201\", function(){\r",
 									"    pm.response.to.have.status(201);\r",
@@ -501,7 +541,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"itens\": [{\r\n        \"produto\": {\r\n            \"id\": 1\r\n        },\r\n        \"quantidade\": 10\r\n    }]\r\n}",
+							"raw": "{\r\n    \"itens\": [{\r\n        \"produto\": {\r\n            \"id\": {{id-produto}}\r\n        },\r\n        \"quantidade\": 10\r\n    }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -509,45 +549,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos",
+							"raw": "http://{{host}}/api/pedidos",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
-							"path": [
-								"api",
-								"pedidos"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Lista Pedidos",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Lista pedidos - Status code 200\", function(){\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/pedidos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos"
@@ -575,12 +581,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos?status=AGUARDANDO_PAGAMENTO",
+							"raw": "http://{{host}}/api/pedidos?status=AGUARDANDO_PAGAMENTO",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos"
@@ -597,33 +602,12 @@
 				},
 				{
 					"name": "Busca Pedido",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/pedidos/{{id-pedido}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"pedidos",
-								"{{id-pedido}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Altera Status do Pedido",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Altera status do pedido - Status code 200\", function(){\r",
+									"pm.test(\"Busca pedido por id - Status code 200\", function(){\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
@@ -632,30 +616,18 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos/{{id-pedido}}/status/RECEBIDO",
+							"raw": "http://{{host}}/api/pedidos/{{id-pedido}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos",
-								"{{id-pedido}}",
-								"status",
-								"RECEBIDO"
+								"{{id-pedido}}"
 							]
 						}
 					},
@@ -689,85 +661,24 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos/{{id-pedido}}/status/AGUARDANDO_PAGAMENTO",
+							"raw": "http://{{host}}/api/pedidos/{{id-pedido}}/status/RECEBIDO",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos",
 								"{{id-pedido}}",
 								"status",
-								"AGUARDANDO_PAGAMENTO"
+								"RECEBIDO"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Pagamento Reprovado",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Pagamento reprovado - Status code 200\", function(){\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Referer",
-								"value": "https://mercadopago.com.ar",
-								"type": "text"
-							},
-							{
-								"key": "User-Agent",
-								"value": "MercadoPago WebHook v1.0 payment",
-								"type": "text"
-							},
-							{
-								"key": "status-mock",
-								"value": "REPROVADO",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/gatewaypagamento/pedido/7bbdd6c7-7f64-43df-8177-38e34ab2c165",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"gatewaypagamento",
-								"pedido",
-								"7bbdd6c7-7f64-43df-8177-38e34ab2c165"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pagamento Aprovado",
+					"name": "Pagamento Aprovado - Webhook Mock",
 					"event": [
 						{
 							"listen": "test",
@@ -802,6 +713,140 @@
 						],
 						"body": {
 							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/gatewaypagamento/pedido/{{codigo-pedido}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gatewaypagamento",
+								"pedido",
+								"{{codigo-pedido}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pagamento Reprovado - Webhook Mock",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Pagamento reprovado - Status code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Referer",
+								"value": "https://mercadopago.com.ar",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "MercadoPago WebHook v1.0 payment",
+								"type": "text"
+							},
+							{
+								"key": "status-mock",
+								"value": "REPROVADO",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{host}}/api/gatewaypagamento/pedido/{{codigo-pedido}}",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"gatewaypagamento",
+								"pedido",
+								"{{codigo-pedido}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista Pedidos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Lista pedidos - Status code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{host}}/api/pedidos",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Altera Status do Pedido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Altera status do pedido - Status code 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
 							"raw": "",
 							"options": {
 								"raw": {
@@ -810,7 +855,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/gatewaypagamento/pedido/7bbdd6c7-7f64-43df-8177-38e34ab2c165",
+							"raw": "http://localhost:8080/api/pedidos/{{id-pedido}}/status/EM_PREPARACAO",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -818,9 +863,10 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"gatewaypagamento",
-								"pedido",
-								"7bbdd6c7-7f64-43df-8177-38e34ab2c165"
+								"pedidos",
+								"{{id-pedido}}",
+								"status",
+								"EM_PREPARACAO"
 							]
 						}
 					},
@@ -854,6 +900,14 @@
 			"key": "host",
 			"value": "localhost:8080",
 			"type": "string"
+		},
+		{
+			"key": "cpf-cliente",
+			"value": ""
+		},
+		{
+			"key": "cpf-cliente-teste",
+			"value": ""
 		}
 	]
 }

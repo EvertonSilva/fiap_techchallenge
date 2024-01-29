@@ -51,8 +51,8 @@ spec:
                 key: DATABASE_URL
           - name: DATABASE_USERNAME
             valueFrom:
-              configMapKeyRef:
-                name: db-config
+              secretKeyRef:
+                name: db-secret
                 key: DATABASE_USERNAME
           - name: DATABASE_PASSWORD
             valueFrom:

@@ -3,6 +3,13 @@
 Projeto de Gestão de Pedidos para uma lanchonete desenvolvido para avaliação do curso de Pós-graduação em Arquitetura 
 de Software da FIAP.
 
+## Grupo
+- RM 352233: Everton da Silva
+- RM 352213: Gilberto Aparecido da Silva
+- RM 352272: Lucas Batista da Silva
+- RM 352214: Paulo José de Carlo Almeida
+- RM 352318: Talles Costa
+
 # Por onde começar
 
 A stack definida para este projeto foi a seguinte:
@@ -46,18 +53,16 @@ lanchonete usada no desafio.
     
   ![desenho-de-solucao.jpg](desenho-de-solucao.jpg)
 
-# Como executar
+# Suite de testes
 
-Para executar chamadas aos endpoints da aplicação, é necessário que se tenha o aplicativo postman instalado. A 
-collection do postman com as respectivas requisições pode ser encontrada 
-no caminho `collection/Tech Challeng.postman_collection.json`. Também se faz necessário possuir o arquivo com as 
-variáveis `collection/Tech Challeng - Test.postman_environment.json`. Após baixar os dois arquivos, basta importá-los 
-ao postman.
+Foram criados testes de endpoint no Postman.
+Para executá-los, basta importar os arquivos da pasta `collection` no Postman, são eles:
+- `collection/Tech Challeng.postman_collection.json` - Coleção de requisições de teste.
+- `collection/Tech Challeng - Test.postman_environment.json` - Coleção de variáveis de ambientes de configuração das requisições.
 
-Após importada a collection e o environment, ao clicar com o botão direito na collection importada, posteriormente 
-clicando em `"Run collection"`, é possível executar todas as requisições de chamadas à aplicação de forma encadeada. 
-Desta forma, é exibida uma visualização de testes automatizados do postman, que mostra o resultado de cada uma das 
-execuções, comparando-os com os respectivos resultados esperados.
+Utilize a opção `Run collection` para executar todos os testes de uma só vez, garanta que todas as requisições estão marcadas para execução.
+É possível escolher a quantidade de iterações de execução, escolha quantas desejar e execute a suite de testes.
+As requisições já está ordenadas de forma a garantir o correto fluxo de testes da caso de condução da solução.
 
 # Cluster Kubernetes
 

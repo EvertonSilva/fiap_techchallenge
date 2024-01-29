@@ -15,21 +15,28 @@ spec:
       labels:
         app: backendapi
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "node-role.kubernetes.io/master"
+                    operator: DoesNotExist
       containers:
       - name: backendapi-ctn
         image: evsilva/techchallenge_fiap-api:1.0.1
         resources:
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "256Mi"
+            cpu: "200m"
         livenessProbe:
           httpGet: &http
             path: /api/health
             port: http-web
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
         startupProbe:
           httpGet: *http
-          failureThreshold: 5
+          failureThreshold: 6
           periodSeconds: 10
         ports:
           - containerPort: 8080
@@ -72,7 +79,13 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 60
+          averageUtilization: 75
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 85
 
 ---
 # service

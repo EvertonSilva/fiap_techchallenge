@@ -690,62 +690,12 @@
 								],
 								"type": "text/javascript"
 							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Referer",
-								"value": "https://mercadopago.com.ar",
-								"type": "text"
-							},
-							{
-								"key": "User-Agent",
-								"value": "MercadoPago WebHook v1.0 payment",
-								"type": "text"
-							},
-							{
-								"key": "status-mock",
-								"value": "APROVADO",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
-						"url": {
-							"raw": "http://{{host}}/api/gatewaypagamento/pedido/{{codigo-pedido}}",
-							"protocol": "http",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"gatewaypagamento",
-								"pedido",
-								"{{codigo-pedido}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pagamento Reprovado - Webhook Mock",
-					"event": [
 						{
-							"listen": "test",
+							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.test(\"Pagamento reprovado - Status code 200\", function(){\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -766,7 +716,7 @@
 							},
 							{
 								"key": "status-mock",
-								"value": "REPROVADO",
+								"value": "APROVADO",
 								"type": "text"
 							}
 						],
@@ -828,7 +778,7 @@
 					"response": []
 				},
 				{
-					"name": "Altera Status do Pedido",
+					"name": "Altera Status do Pedido (p/ próximo status válido)",
 					"event": [
 						{
 							"listen": "test",
@@ -837,6 +787,15 @@
 									"pm.test(\"Altera status do pedido - Status code 200\", function(){\r",
 									"    pm.response.to.have.status(200);\r",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript"
 							}

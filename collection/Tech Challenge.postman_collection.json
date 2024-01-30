@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4e6dc8a7-d035-4601-946d-ccfb80c58929",
-		"name": "Tech Challeng",
+		"_postman_id": "32b5c155-227c-4da1-a8ae-58e9512d8f5c",
+		"name": "Tech Challenge",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "3513120",
-		"_collection_link": "https://solar-equinox-274366.postman.co/workspace/Muralis~8990c545-13cc-4747-a3b7-580ec57913db/collection/3513120-4e6dc8a7-d035-4601-946d-ccfb80c58929?action=share&source=collection_link&creator=3513120"
+		"_exporter_id": "2508581"
 	},
 	"item": [
 		{
@@ -500,12 +499,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos",
+							"raw": "http://{{host}}/api/pedidos",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos"
@@ -814,12 +812,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/pedidos/{{id-pedido}}/status/EM_PREPARACAO",
+							"raw": "http://{{host}}/api/pedidos/{{id-pedido}}/status/EM_PREPARACAO",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"pedidos",
@@ -832,6 +829,25 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/api/health",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -852,21 +868,6 @@
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "host",
-			"value": "localhost:8080",
-			"type": "string"
-		},
-		{
-			"key": "cpf-cliente",
-			"value": ""
-		},
-		{
-			"key": "cpf-cliente-teste",
-			"value": ""
 		}
 	]
 }

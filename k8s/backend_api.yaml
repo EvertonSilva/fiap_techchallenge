@@ -24,7 +24,7 @@ spec:
                     operator: DoesNotExist
       containers:
       - name: backendapi-ctn
-        image: evsilva/techchallenge_fiap-api:1.0.1
+        image: evsilva/techchallenge_fiap-api:1.0.2
         resources:
           limits:
             memory: "256Mi"
@@ -51,8 +51,8 @@ spec:
                 key: DATABASE_URL
           - name: DATABASE_USERNAME
             valueFrom:
-              configMapKeyRef:
-                name: db-config
+              secretKeyRef:
+                name: db-secret
                 key: DATABASE_USERNAME
           - name: DATABASE_PASSWORD
             valueFrom:

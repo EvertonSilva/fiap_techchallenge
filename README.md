@@ -57,8 +57,8 @@ lanchonete usada no desafio.
 
 Foram criados testes de endpoint no Postman.
 Para executá-los, basta importar os arquivos da pasta `collection` no Postman, são eles:
-- `collection/Tech Challeng.postman_collection.json` - Coleção de requisições de teste.
-- `collection/Tech Challeng - Test.postman_environment.json` - Coleção de variáveis de ambientes de configuração das requisições.
+- `collection/Tech Challenge.postman_collection.json` - Coleção de requisições de teste.
+- `collection/Tech Challenge - Test.postman_environment.json` - Coleção de variáveis de ambientes de configuração das requisições.
 
 Utilize a opção `Run collection` para executar todos os testes de uma só vez, garanta que todas as requisições estão marcadas para execução.
 É possível escolher a quantidade de iterações de execução, escolha quantas desejar e execute a suite de testes.

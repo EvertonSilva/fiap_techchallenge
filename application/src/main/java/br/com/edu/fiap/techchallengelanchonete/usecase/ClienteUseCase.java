@@ -34,18 +34,4 @@ public class ClienteUseCase {
         return this.clienteRepository.buscaCPF(new CPF(cpf));
     }
 
-//    private void teste()
-//    {
-//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//        Validator validator = factory.getValidator();
-//
-//        Cliente cliente = new Cliente();
-//        cliente.setNome(new Nome("Cliente Teste"));
-//
-//        Set<ConstraintViolation<Cliente>> violations = validator.validate(cliente);
-//
-//        if (violations.isEmpty())
-//            System.out.println("Cliente é válido.");
-//    }
-
 }

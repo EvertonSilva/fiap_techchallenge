@@ -2,6 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.infrastructure.pedido;
 
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.cliente.ClienteModel;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.DomainObject;
+import br.com.edu.fiap.techchallengelanchonete.infrastructure.pagamento.PagamentoModel;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,10 +19,12 @@ public class PedidoModel extends DomainObject {
     private List<ItemPedidoModel> itens;
     @ManyToOne
     private ClienteModel cliente;
-    @Column
-    private String statusPagamento;
+    @OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true)
+    private PagamentoModel pagamento;
     @Column
     private String statusPedido;
+    @Column
+    private String codigo;
 
     public PedidoModel() {
         this.itens = new ArrayList<>();

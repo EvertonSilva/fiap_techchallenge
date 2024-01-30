@@ -8,5 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Email {
+    public static final String EMAIL_PAGAMENTO = "pagamento@techchallengelanchonete.com";
+
     private String valor;
 }

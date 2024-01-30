@@ -30,8 +30,9 @@ public class ClienteController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Cliente> criaCliente(@RequestBody Cliente cliente)
     {
-        System.out.println(cliente.toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(clienteUseCase.salvaCliente(cliente));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(clienteUseCase.salvaCliente(cliente));
     }
 
 }

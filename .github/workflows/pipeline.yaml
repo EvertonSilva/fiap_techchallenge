@@ -1,0 +1,15 @@
+name: Pipeline CI/CD
+# @FIXME: @TallesCosta Apenas para teste
+#on:
+#  pull_request:
+#    branches:
+#      - main
+on: 
+  push:
+    branches:
+      - feat/cria-pipeline
+jobs:
+  Job-de-teste:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Good! 🎉"

@@ -1,0 +1,10 @@
+name: Pipeline CI/CD
+on:
+  push:
+    branches:
+      - feat/teste2
+jobs:
+  Job-de-teste-2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Good 2! 🎉"

@@ -27,8 +27,8 @@ spec:
         image: public.ecr.aws/h6u9l9z6/fiap_techchallenge:latest
         resources:
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "384Mi"
+            cpu: "700m"
         livenessProbe:
           httpGet: &http
             path: /api/health

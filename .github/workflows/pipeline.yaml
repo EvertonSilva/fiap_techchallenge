@@ -6,6 +6,12 @@ on:
       - feat/cria-pipeline
 jobs:
   deploy-aws:
+    env:
+      REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+      REGISTRY_ALIAS: ${{ vars.ECR_REGISTRY_ALIAS }}
+      # Poderíamos utilizar "${{ github.sha }}" para identificar/diferenciar as versões de entrega para a produção, 
+      # porém, optamos por atualizar a versão latest para economizar espaço no AWS ECR Public.
+      IMAGE_TAG: latest
     name: Deploy AWS
     runs-on: ubuntu-latest
     steps:
@@ -28,12 +34,22 @@ jobs:
       - name: Constrói, define tag e publica imagem docker no AWS ECR Public
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          REGISTRY_ALIAS: ${{ vars.ECR_REGISTRY_ALIAS }}
-          # Poderíamos utilizar "${{ github.sha }}" para identificar/diferenciar as versões de entrega para a produção, 
-          # porém, optamos por atualizar a versão latest para economizar espaço no AWS ECR Public.
-          IMAGE_TAG: latest
         # $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY == URI do repositório no ECR Public (Console).
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          echo "AWS ECR Public atualizado! 🐳"
+      
+      - name: Atualiza configuração do kube no AWS EKS
+        run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region us-east-1
+
+      - name: Atualiza recursos do AWS EKS
+        env: 
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+        run: |
+          kubectl apply -f k8s/database_conf.yaml
+          kubectl apply -f k8s/database.yaml
+          export FIAP_TECHCHALLENGE_DOCKER_IMAGE=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          envsubst < k8s/backend_api.yaml | kubectl apply -f -
+          kubectl rollout restart deployment/backendapi-dep
+          echo "AWS EKS atualizado! 🚢"

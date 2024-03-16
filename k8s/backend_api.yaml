@@ -24,7 +24,7 @@ spec:
                     operator: DoesNotExist
       containers:
       - name: backendapi-ctn
-        image: evsilva/techchallenge_fiap-api:1.0.3
+        image: public.ecr.aws/h6u9l9z6/fiap_techchallenge:latest
         resources:
           limits:
             memory: "256Mi"

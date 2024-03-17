@@ -24,11 +24,12 @@ spec:
                     operator: DoesNotExist
       containers:
       - name: backendapi-ctn
-        image: evsilva/techchallenge_fiap-api:1.0.3
+        image: ${FIAP_TECHCHALLENGE_DOCKER_IMAGE}
+        imagePullPolicy: Always
         resources:
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "384Mi"
+            cpu: "700m"
         livenessProbe:
           httpGet: &http
             path: /api/health

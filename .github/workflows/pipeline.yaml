@@ -2,8 +2,7 @@ name: CI/CD - AWS EKS
 on:
   push:
     branches:
-      # FIXME: @TallesCosta substituir por: main
-      - feat/cria-pipeline
+      - main
 jobs:
   deploy-aws:
     env:
@@ -36,8 +35,6 @@ jobs:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         # $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY == URI do repositório no ECR Public (Console).
         run: |
-          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           echo "AWS ECR Public atualizado! 🐳"
       
       - name: Atualiza configuração do kube no AWS EKS
@@ -49,7 +46,4 @@ jobs:
         run: |
           kubectl apply -f k8s/database_conf.yaml
           kubectl apply -f k8s/database.yaml
-          export FIAP_TECHCHALLENGE_DOCKER_IMAGE=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-          envsubst < k8s/backend_api.yaml | kubectl apply -f -
-          kubectl rollout restart deployment/backendapi-dep
           echo "AWS EKS atualizado! 🚢"

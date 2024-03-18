@@ -35,6 +35,8 @@ jobs:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         # $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY == URI do repositório no ECR Public (Console).
         run: |
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           echo "AWS ECR Public atualizado! 🐳"
       
       - name: Atualiza configuração do kube no AWS EKS

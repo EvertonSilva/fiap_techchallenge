@@ -2,7 +2,7 @@ name: CI/CD - AWS EKS
 on:
   push:
     branches:
-      - main
+      - temp/teste-pipe
 jobs:
   deploy-aws:
     env:

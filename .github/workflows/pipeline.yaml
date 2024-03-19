@@ -24,27 +24,24 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Realiza login no AWS ECR Public
-        id: login-ecr-public
+      - name: Realiza login no AWS ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2.0.1
-        with:
-          registry-type: public
       
-      - name: Constrói, define tag e publica imagem docker no AWS ECR Public
+      - name: Constrói, define tag e publica imagem docker no AWS ECR
         env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-        # $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY == URI do repositório no ECR Public (Console).
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-          echo "AWS ECR Public atualizado! 🐳"
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "AWS ECR atualizado! 🐳"
       
       - name: Atualiza configuração do kube no AWS EKS
         run: aws eks update-kubeconfig --name ${{ vars.EKS_CLUSTER_NAME }} --region us-east-1
 
       - name: Atualiza recursos do AWS EKS
         env: 
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           kubectl apply -f k8s/database_conf.yaml
           kubectl apply -f k8s/database.yaml

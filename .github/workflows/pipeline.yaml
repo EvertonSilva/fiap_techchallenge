@@ -45,4 +45,7 @@ jobs:
         run: |
           kubectl apply -f k8s/database_conf.yaml
           kubectl apply -f k8s/database.yaml
+          export FIAP_TECHCHALLENGE_DOCKER_IMAGE=$REGISTRY/$REPOSITORY:$IMAGE_TAG
+          envsubst < k8s/backend_api.yaml | kubectl apply -f -
+          kubectl rollout restart deployment/backendapi-dep
           echo "AWS EKS atualizado! 🚢"

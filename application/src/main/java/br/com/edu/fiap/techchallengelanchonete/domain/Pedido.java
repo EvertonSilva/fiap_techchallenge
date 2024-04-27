@@ -29,7 +29,6 @@ public class Pedido extends DomainObject {
 
     public Pedido() {
         this.codigo = new Codigo();
-        this.codigo.gerarCodigo();
 
         this.pagamento = new Pagamento();
         this.status = StatusPedido.AGUARDANDO_PAGAMENTO;

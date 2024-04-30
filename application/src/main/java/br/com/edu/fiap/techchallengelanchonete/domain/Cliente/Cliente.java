@@ -52,6 +52,6 @@ public class Cliente extends DomainObject implements ICliente {
     }
 
     public String getSobrenome() {
-        return this.getNome().getSobrenome();
+        return this.getNome().getSobrenomes();
     }
 }

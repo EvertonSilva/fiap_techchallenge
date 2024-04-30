@@ -29,11 +29,11 @@ public class Pedido extends DomainObject {
 
     public Pedido() {
         this.codigo = new Codigo();
+        this.data = new DataCriacao();
 
         this.pagamento = new Pagamento();
         this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
         this.itens = new ArrayList<>();
-        this.data = new DataCriacao();
     }
 
     public static List<Pedido> ordenarListagem(List<Pedido> pedidos) {

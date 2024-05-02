@@ -55,7 +55,7 @@ public class GatewayMercadoPagoRegistrador implements IGatewayPagamentoRegistrad
                                     PaymentPayerRequest.builder()
                                             .email(emailGeracaoPix)
                                             .firstName(pedido.getCliente().getPrimeiroNome())
-                                            .lastName(pedido.getCliente().getSobrenome())
+                                            .lastName(pedido.getCliente().getSobrenomes())
                                             .identification(
                                                     IdentificationRequest.builder().type("CPF").number(pedido.getCliente().getCpf().getValor()).build())
                                             .build())

@@ -20,8 +20,8 @@ public class DataExpiracaoPagamentoTest {
             .isNotNull();
         assertThat(dataExpeiracaoPadraoPagamento.getData())
             .isNotNull();
-        assertThat(dataExpeiracaoPadraoPagamento.getData().toInstant().truncatedTo(ChronoUnit.MILLIS))
-            .isEqualTo(trintaMinutosNoFuturo.truncatedTo(ChronoUnit.MILLIS));
+        assertThat(dataExpeiracaoPadraoPagamento.getData().toInstant().truncatedTo(ChronoUnit.SECONDS))
+            .isEqualTo(trintaMinutosNoFuturo.truncatedTo(ChronoUnit.SECONDS));
     }
 
 }

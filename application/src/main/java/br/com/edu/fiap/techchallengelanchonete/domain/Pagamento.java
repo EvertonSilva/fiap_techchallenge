@@ -22,10 +22,4 @@ public class Pagamento {
         this.pixCopiaECola = new PagamentoCopiaCola();
         this.pixQRCode64 = new PagamentoQRCode();
     }
-
-    public Pagamento(DataExpiracao dataExpiracaoPagamento, PagamentoCopiaCola pixCopiaECola, PagamentoQRCode pixQRCode64) {
-        this.dataExpiracaoPagamento = dataExpiracaoPagamento;
-        this.pixCopiaECola = pixCopiaECola;
-        this.pixQRCode64 = pixQRCode64;
-    }
 }

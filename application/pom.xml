@@ -66,6 +66,9 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
+                <configuration>
+                    <excludes>br/com/edu/fiap/techchallengelanchonete/validation/*</excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

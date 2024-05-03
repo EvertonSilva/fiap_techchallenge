@@ -17,6 +17,7 @@ public class ItemPedido extends DomainObject {
 
     public ItemPedido() {
         this.quantidade = new Quantidade(0);
+        this.produto = new Produto();
     }
 
     public Valor getSubTotal() {

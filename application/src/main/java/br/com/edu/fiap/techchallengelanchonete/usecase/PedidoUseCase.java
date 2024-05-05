@@ -87,7 +87,7 @@ public class PedidoUseCase {
                 .map(s -> pedidoPersistence.listaPedidosPorStatus(s))
                 .orElseGet(() -> {
                     List<Pedido> pedidos = pedidoPersistence.listaPedidos();
-                    return Pedido.ordenarListagem(pedidos);
+                    return Pedido.ordenaPorStatusDataCriacaoFiltraPorStatus(pedidos);
                 });
     }
 

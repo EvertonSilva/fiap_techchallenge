@@ -24,17 +24,23 @@ public class Cliente extends DomainObject implements ICliente {
     @NotNull
     private CPF cpf;
 
-    public Cliente(){
+    public Cliente() {
         this.nome = new Nome("");
         this.cpf = new CPF("");
         this.email = new Email("");
     }
 
     public String getPrimeiroNome() {
+        if (nome == null)
+            return new String();
+
         return this.getNome().getPrimeiro();
     }
 
     public String getSobrenomes() {
+        if (nome == null)
+            return new String();
+
         return this.getNome().getSobrenomes();
     }
 }

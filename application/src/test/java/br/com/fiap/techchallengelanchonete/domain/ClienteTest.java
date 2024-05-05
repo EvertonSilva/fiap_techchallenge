@@ -24,4 +24,22 @@ public class ClienteTest {
         );
     }
 
+    @Test 
+    void deveRetornarPrimeiroNome_quandoNomeNulo() {
+        var cliente = new Cliente();
+        cliente.setNome(null);
+
+        assertThat(cliente.getPrimeiroNome())
+            .isNotNull();
+    }
+
+    @Test 
+    void deveRetornarSobrenomes_quandoNomeNulo() {
+        var cliente = new Cliente();
+        cliente.setNome(null);
+        
+        assertThat(cliente.getSobrenomes())
+            .isNotNull();
+    }
+
 }

@@ -12,7 +12,7 @@ services:
       - SPRING_PROFILE=dev
     depends_on:
       - database-pedido
-      - msg-queue
+      - message-broker
 
   database-pedido:
     container_name: 'postgresql-pedido-lanchonete'
@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_PASSWORD: Postgres!1@2#3
   
-  msg-queue:
+  message-broker:
     image: "rabbitmq:3.10.25-management-alpine"
     container_name: rabbit-lanchonete
     ports:

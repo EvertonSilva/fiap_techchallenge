@@ -1,0 +1,31 @@
+version: '3'
+
+services:  
+  api-pagamento:
+    container_name: 'api-pagamento-lanchonete'
+    build: .
+    volumes:
+      - './:/app'
+    ports:
+      - 8082:8080
+    networks:
+      - fiap-lanchonete
+    environment:
+      - SPRING_PROFILE=dev
+    depends_on:
+      - database-pagamento
+
+  database-pagamento:
+    container_name: 'postgresql-pagamento-lanchonete'
+    image: 'postgres:alpine3.18'
+    ports:
+      - 5434:5432
+    networks:
+      - fiap-lanchonete
+    environment:
+      POSTGRES_PASSWORD: Postgres!1@2#3
+
+networks:
+  fiap-lanchonete:
+    name: fiap-lanchonete-network
+    driver: bridge

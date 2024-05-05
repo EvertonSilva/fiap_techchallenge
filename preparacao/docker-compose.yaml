@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  api-preparacao:
+    container_name: 'api-preparacao-lanchonete'
+    build: .
+    volumes:
+      - './:/app'
+    ports:
+      - 8083:8080
+    networks:
+      - fiap-lanchonete
+    environment:
+      - SPRING_PROFILE=dev
+    depends_on:
+      - database-preparacao
+
+  database-preparacao:
+    container_name: 'redis-preparacao-lanchonete'
+    image: 'redis:7.2.3-alpine'
+    ports:
+      - 6379:6379
+    networks:
+      - fiap-lanchonete
+
+networks:
+  fiap-lanchonete:
+    name: fiap-lanchonete-network
+    driver: bridge

@@ -1,0 +1,18 @@
+# config map
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  DATABASE_URL: "jdbc:postgresql://postgres-svc/postgres"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "P@sswd4Db"    # postgres root password
+  DATABASE_USERNAME: "postgres"     # app db user
+  DATABASE_PASSWORD: "P@sswd4Db"    # app db password

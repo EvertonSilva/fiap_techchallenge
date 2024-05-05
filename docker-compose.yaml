@@ -1,20 +1,4 @@
-version: '3'
-
-services:
-  api:
-    container_name: 'api-lanchonete'
-    build: .
-    volumes:
-      - './:/app'
-    ports:
-      - 8080:8080
-    environment:
-      - SPRING_PROFILE=dev
-
-  database:
-    container_name: 'postgresql-lanchonete'
-    image: 'postgres:alpine3.18'
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: Postgres!1@2#3
+include:
+  - pedido/docker-compose.yaml
+  - pagamento/docker-compose.yaml
+  - preparacao/docker-compose.yaml

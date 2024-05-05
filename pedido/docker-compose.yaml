@@ -1,0 +1,43 @@
+services:
+  api-pedido:
+    container_name: 'api-pedido-lanchonete'
+    build: .
+    volumes:
+      - './:/app'
+    ports:
+      - 8081:8080
+    networks:
+      - fiap-lanchonete
+    environment:
+      - SPRING_PROFILE=dev
+    depends_on:
+      - database-pedido
+      - msg-queue
+
+  database-pedido:
+    container_name: 'postgresql-pedido-lanchonete'
+    image: 'postgres:alpine3.18'
+    ports:
+      - 5433:5432
+    networks:
+      - fiap-lanchonete
+    environment:
+      POSTGRES_PASSWORD: Postgres!1@2#3
+  
+  msg-queue:
+    image: "rabbitmq:3.10.25-management-alpine"
+    container_name: rabbit-lanchonete
+    ports:
+      - 25672:25672
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - fiap-lanchonete
+    environment:
+      - RABBITMQ_DEFAULT_USER=fiap
+      - RABBITMQ_DEFAULT_PASS=Rabbit!1@2#3
+
+networks:
+  fiap-lanchonete:
+    name: fiap-lanchonete-network
+    driver: bridge

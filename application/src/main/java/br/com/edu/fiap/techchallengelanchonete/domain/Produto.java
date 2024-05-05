@@ -1,7 +1,6 @@
 package br.com.edu.fiap.techchallengelanchonete.domain;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Descricao;
-import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 import lombok.Data;
@@ -26,6 +25,7 @@ public class Produto extends DomainObject {
         this.nome = new Nome("");
         this.descricao = new Descricao("");
         this.preco = new Valor(new BigDecimal(0));
+        this.categoria = new Categoria();
         this.imagens = new ArrayList<>();
     }
 }

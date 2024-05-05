@@ -6,13 +6,17 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Id;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString
+@AllArgsConstructor
+@SuperBuilder
 public class Cliente extends DomainObject implements ICliente {
     private Nome nome;
     private Email email;
@@ -20,38 +24,23 @@ public class Cliente extends DomainObject implements ICliente {
     @NotNull
     private CPF cpf;
 
-    public Cliente(){
+    public Cliente() {
         this.nome = new Nome("");
         this.cpf = new CPF("");
         this.email = new Email("");
     }
 
-    public Cliente(Id id, Nome nome, Email email, CPF cpf){
-        super(id);
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-    }
-
-    public Cliente(Email email, CPF cpf){
-        super(new Id(Long.valueOf(0)));
-        this.nome = new Nome("");
-        this.email = email;
-        this.cpf = cpf;
-    }
-
-    public Cliente(Nome nome, Email email, CPF cpf){
-        super(new Id(Long.valueOf(0)));
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-    }
-
     public String getPrimeiroNome() {
+        if (nome == null)
+            return new String();
+
         return this.getNome().getPrimeiro();
     }
 
-    public String getSobrenome() {
-        return this.getNome().getSobrenome();
+    public String getSobrenomes() {
+        if (nome == null)
+            return new String();
+
+        return this.getNome().getSobrenomes();
     }
 }

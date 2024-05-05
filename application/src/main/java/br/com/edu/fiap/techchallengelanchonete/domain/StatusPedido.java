@@ -12,6 +12,9 @@ public enum StatusPedido {
 
     public static StatusPedido de(String status) {
         try {
+            if (status == null)
+                throw new IllegalArgumentException();
+
             return Enum.valueOf(StatusPedido.class, status.toUpperCase());
         } catch (IllegalArgumentException ex) {
             throw  new ApplicationException("Status não existe");

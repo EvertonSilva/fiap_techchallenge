@@ -17,10 +17,12 @@ public class ClienteAdapter implements IAdapter<Cliente, ClienteModel> {
         if (clienteModel == null)
             return new ClienteNulo();
 
-        return new Cliente(new Id(clienteModel.getId()),
-                new Nome(clienteModel.getNome()),
-                new Email(clienteModel.getEmail()),
-                new CPF(clienteModel.getCpf()));
+        return Cliente.builder()
+            .id(new Id(clienteModel.getId()))
+            .nome(new Nome(clienteModel.getNome()))
+            .email(new Email(clienteModel.getEmail()))
+            .cpf(new CPF(clienteModel.getCpf()))
+            .build();
     }
 
     @Override

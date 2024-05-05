@@ -106,3 +106,10 @@ sendo executado no cluster e os seguintes recursos adicionados:
 Com o cluster de pé podemos testar a amplicação direcionando as requesições para a porta do serviço criado para permitir
 o acesso em `http://localhost:30808/api`. Caso vc tenha alterado o arquivo de manifesto para expor o serviço em uma
 porta diferente ajuste a url de acordo.
+
+# Cobertura de Testes
+
+Para verificar a cobertura de testes utilizados a ferramente JaCoCo integrada ao Maven, para gerar o relatório de cobertura de testes basta executar:
+```
+.\mvnw -f .\application\pom.xml clean test jacoco:report
+```

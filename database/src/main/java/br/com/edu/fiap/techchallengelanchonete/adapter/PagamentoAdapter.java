@@ -2,7 +2,6 @@ package br.com.edu.fiap.techchallengelanchonete.adapter;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Pagamento;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPagamento;
-import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataExpiracao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoCopiaCola;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoQRCode;

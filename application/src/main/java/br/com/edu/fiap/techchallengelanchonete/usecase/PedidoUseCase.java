@@ -2,7 +2,6 @@ package br.com.edu.fiap.techchallengelanchonete.usecase;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.*;
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
-import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.exception.NotFoundResourceException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
@@ -40,7 +39,7 @@ public class PedidoUseCase {
         {
             var clienteExistente = this.clientePersistence.buscaId(pedido.getCliente().getId().getValor());
             if (clienteExistente instanceof ClienteNulo)
-                throw new ApplicationException("Cliente inexistente!");
+                throw new NotFoundResourceException("Cliente não encontrado!");
 
             pedido.setCliente(clienteExistente);
         } else {
@@ -108,15 +107,8 @@ public class PedidoUseCase {
     }
 
     private boolean protudosExistentes(Pedido pedido) {
-        var produtosExistentes =
-                !pedido.getItens().isEmpty()
-                        && pedido.getItens().stream().allMatch(x -> x.getProduto() != null);
-
-        for (ItemPedido item: pedido.getItens()) {
-            var produtoBuscado = this.produtoPersistence.buscaId(item.getProduto().getId().getValor());
-            produtosExistentes &= produtoBuscado.isPresent();
-        }
-
-        return produtosExistentes;
+        return pedido.getItens() != null
+            && !pedido.getItens().isEmpty()
+            && pedido.getItens().stream().allMatch(x -> x.getProduto() != null);
     }
 }

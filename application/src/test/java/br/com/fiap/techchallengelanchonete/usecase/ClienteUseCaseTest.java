@@ -20,7 +20,7 @@ import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IClientePersistence;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ClienteUseCase;
 
-public class ClienteUseCaseTest {
+class ClienteUseCaseTest {
 
     AutoCloseable mock;
 
@@ -47,9 +47,10 @@ public class ClienteUseCaseTest {
             when(clientePersistence.buscaCPF(any(CPF.class)))
                 .thenReturn(new Cliente());
             
+            var cliente = new Cliente();
             var applicationException = assertThrows(
                 ApplicationException.class, () -> {
-                clienteUseCase.salvaCliente(new Cliente());
+                clienteUseCase.salvaCliente(cliente);
             });
 
             assertThat(applicationException)

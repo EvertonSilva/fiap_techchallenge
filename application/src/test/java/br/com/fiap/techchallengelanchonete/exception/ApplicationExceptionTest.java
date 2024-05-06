@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 
-public class ApplicationExceptionTest {
+class ApplicationExceptionTest {
 
     @Test
     void deveGerarApplicationException() {
@@ -15,7 +15,7 @@ public class ApplicationExceptionTest {
 
         var applicationException = assertThrows(ApplicationException.class, () -> {
             throw new ApplicationException(msgException);
-        } );
+        });
         
         assertThat(applicationException)
             .isNotNull()

@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPagamento;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 
-public class StatusPagamentoTest {
+class StatusPagamentoTest {
     
     @ParameterizedTest
     @ValueSource(strings = { "AGUARDANDO", "APROVADO", "REPROVADO", "aguardando", "aprovado", "reprovado" })
@@ -30,27 +30,27 @@ public class StatusPagamentoTest {
     @ParameterizedTest
     @ValueSource(strings = { "bananinha", "" })
     void deveCriarStatusPagamentoPorString_quandoStringInvalida(String statusPagamentoTexto) {
-        var ApplicationException = assertThrows(ApplicationException.class, () -> {
+        var applicationException = assertThrows(ApplicationException.class, () -> {
             StatusPagamento.de(statusPagamentoTexto);
         });
 
-        assertThat(ApplicationException)
+        assertThat(applicationException)
             .isNotNull()
             .isInstanceOf(ApplicationException.class);
-        assertThat(ApplicationException.getMessage())
+        assertThat(applicationException.getMessage())
             .isEqualTo("Status não existe");
     }
 
     @Test
     void deveCriarStatusPagamentoPorString_quandoStringNula() {
-        var ApplicationException = assertThrows(ApplicationException.class, () -> {
+        var applicationException = assertThrows(ApplicationException.class, () -> {
             StatusPagamento.de(null);
         });
 
-        assertThat(ApplicationException)
+        assertThat(applicationException)
             .isNotNull()
             .isInstanceOf(ApplicationException.class);
-        assertThat(ApplicationException.getMessage())
+        assertThat(applicationException.getMessage())
             .isEqualTo("Status não existe");
     }
 

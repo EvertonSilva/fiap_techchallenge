@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoCopiaCola;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoQRCode;
 
-public class PagamentoPIXTest {
+class PagamentoPIXTest {
     
     @Test
     void deveCriarPagamentoCopiaCola() {

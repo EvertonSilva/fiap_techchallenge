@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pagamento;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPagamento;
 
-public class PagamentoTest {
+class PagamentoTest {
     
     @Test
     void deveCriarItemPedidoVazio() {

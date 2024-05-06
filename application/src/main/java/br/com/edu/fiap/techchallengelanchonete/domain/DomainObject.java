@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 public abstract class DomainObject {
     private Id id;
 
-    public DomainObject() {
+    protected DomainObject() {
         this.id = new Id(0L);
     }
 }

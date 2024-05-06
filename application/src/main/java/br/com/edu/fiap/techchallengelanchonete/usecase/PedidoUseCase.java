@@ -47,9 +47,7 @@ public class PedidoUseCase {
         }
 
         this.gatewayPagamentoRegistrador.registroPagamento(pedido);
-        var pedidoRegistrado = this.pedidoPersistence.registraPedido(pedido);
-
-        return pedidoRegistrado;
+        return this.pedidoPersistence.registraPedido(pedido);
     }
 
     public Pedido atualizaPedido(Pedido pedido) {

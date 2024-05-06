@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Nome;
 
-public class NomeTest {
+class NomeTest {
     
     @Nested
     class PrimeiroNomeTest {

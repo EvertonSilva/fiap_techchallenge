@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Codigo;
 
-public class CodigoTest {
+class CodigoTest {
     
     @Test
     void deveGerarCodigoValido() {

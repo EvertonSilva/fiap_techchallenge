@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
 
-public class ProdutoTest {
+class ProdutoTest {
     
     @Test
     void deveCriarProdutoVazio() {

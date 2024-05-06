@@ -3,7 +3,6 @@ package br.com.fiap.techchallengelanchonete.domain;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
@@ -29,7 +28,7 @@ import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataCriacao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Quantidade;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 
-public class PedidoTest {
+class PedidoTest {
     
     @Test
     void deveCriarPedidoVazio() {

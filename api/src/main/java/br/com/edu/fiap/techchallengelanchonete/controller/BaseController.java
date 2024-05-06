@@ -11,7 +11,7 @@ import java.util.Map;
 public class BaseController {
 
     @GetMapping("/health")
-    public ResponseEntity healthCheck() {
+    public ResponseEntity<Map<String, String>> healthCheck() {
         Map<String, String> body = new HashMap<>();
         body.put("status", "Up and Running");
 

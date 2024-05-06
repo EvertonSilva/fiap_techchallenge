@@ -12,7 +12,6 @@ import com.mercadopago.client.common.IdentificationRequest;
 import com.mercadopago.client.payment.*;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.resources.payment.Payment;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

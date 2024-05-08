@@ -2,7 +2,7 @@ package br.com.fiap.techchallengelanchonete.domain.valueobject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Nested;
@@ -114,7 +114,7 @@ class NomeTest {
      * @return pseudo nome randômico.
      */
     private String geraPseudoNomeRandomico() {
-        return RandomStringUtils.randomAlphabetic(new Random().nextInt(5, 10));
+        return RandomStringUtils.randomAlphabetic(ThreadLocalRandom.current().nextInt(5, 10 + 1));
     }
 
     /**

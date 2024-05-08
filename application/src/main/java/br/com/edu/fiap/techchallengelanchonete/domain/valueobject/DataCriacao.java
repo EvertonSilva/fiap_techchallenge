@@ -1,13 +1,17 @@
 package br.com.edu.fiap.techchallengelanchonete.domain.valueobject;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
+import java.time.Instant;
 import java.util.Date;
 
-@lombok.Data
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class DataCriacao {
     private Date valor;
+
+    public DataCriacao() {
+        this.valor = Date.from(Instant.now());
+    }
 }

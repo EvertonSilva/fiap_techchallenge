@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -29,20 +30,34 @@ public class Pedido extends DomainObject {
 
     public Pedido() {
         this.codigo = new Codigo();
-        this.codigo.gerarCodigo();
+        this.data = new DataCriacao();
 
         this.pagamento = new Pagamento();
+        this.cliente = new Cliente();
         this.status = StatusPedido.AGUARDANDO_PAGAMENTO;
         this.itens = new ArrayList<>();
-        this.data = new DataCriacao();
     }
 
-    public static List<Pedido> ordenarListagem(List<Pedido> pedidos) {
-        List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
+    public static List<Pedido> ordenaPorStatusDataCriacaoFiltraPorStatus(List<Pedido> pedidos) {
+        if (pedidos == null)
+            return new ArrayList<>();
 
+        List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
+        pedidosOrdenados = ordenaPorStatus(pedidosOrdenados);
+        pedidosOrdenados = ordenaPorDataMaisAntiga(pedidosOrdenados);
+        pedidosOrdenados = filtraPorStatus(pedidosOrdenados);
+
+        return pedidosOrdenados;
+    }
+
+    public static List<Pedido> ordenaPorStatus(List<Pedido> pedidos) {
+        if (pedidos == null)
+            return new ArrayList<>();
+
+        List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
         pedidosOrdenados
-                .sort(Comparator
-                .comparing((Pedido pedido) -> {
+            .sort(Comparator.comparing(
+                pedido -> {
                     switch (pedido.getStatus()) {
                         case RECEBIDO: return 0;
                         case EM_PREPARACAO: return 1;
@@ -50,32 +65,56 @@ public class Pedido extends DomainObject {
                         default: return 3;
                     }
                 })
-                .thenComparing(pedido -> pedido.getData().getValor()));
-
-        pedidosOrdenados =
-                pedidosOrdenados
-                        .stream()
-                        .filter(pedido -> pedido.getStatus() != StatusPedido.FINALIZADO && pedido.getStatus() != StatusPedido.AGUARDANDO_PAGAMENTO)
-                        .collect(Collectors.toList());
+            );
 
         return pedidosOrdenados;
+    }
+
+    public static List<Pedido> ordenaPorDataMaisAntiga(List<Pedido> pedidos) {
+        if (pedidos == null)
+            return new ArrayList<>();
+
+        List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
+        pedidosOrdenados.sort(
+            Comparator.comparing(
+                pedido -> pedido.getData().getValor().getTime()));
+
+        return pedidosOrdenados;
+    }
+    
+    public static List<Pedido> filtraPorStatus(List<Pedido> pedidos) {
+        if (pedidos == null)
+            return new ArrayList<>();
+
+        return pedidos
+                .stream()
+                .filter(pedido -> 
+                    pedido.getStatus() != StatusPedido.FINALIZADO 
+                    && pedido.getStatus() != StatusPedido.AGUARDANDO_PAGAMENTO)
+                .collect(Collectors.toList());
     }
 
     public Valor getValorTotal() {
         Valor valorTotal = new Valor(new BigDecimal(0));
 
+        if (itens == null)
+            return valorTotal;
+
+        BigDecimal valorTotalAtualizado = new BigDecimal(0);
         for (ItemPedido item: itens) {
             var subTotal = item.getSubTotal().getValor();
-            var valorTotalAtualizado = valorTotal.getValor().add(subTotal);
-            valorTotal.setValor(valorTotalAtualizado);
+            valorTotalAtualizado = valorTotalAtualizado.add(subTotal);
         }
 
+        var valorTotalAtualizadoArredondado = valorTotalAtualizado.setScale(2, RoundingMode.HALF_DOWN);
+        valorTotal.setValor(valorTotalAtualizadoArredondado);
         return valorTotal;
     }
 
     public boolean validaProximoStatus(StatusPedido status) {
         var recebidoValido =
                 this.status == StatusPedido.AGUARDANDO_PAGAMENTO
+                        && this.getPagamento() != null
                         && this.getPagamento().getStatus() == StatusPagamento.APROVADO
                         && status == StatusPedido.RECEBIDO;
         var emPreparacaoValido =
@@ -95,9 +134,5 @@ public class Pedido extends DomainObject {
                         && status == StatusPedido.CANCELADO;
 
         return recebidoValido || emPreparacaoValido || prontoValido || finalizadoValido || canceladoValido;
-    }
-
-    public void confirmaPagamento(StatusPagamento status) {
-        this.pagamento.setStatus(status);
     }
 }

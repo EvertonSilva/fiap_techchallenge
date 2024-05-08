@@ -9,6 +9,9 @@ public enum StatusPagamento {
 
     public static StatusPagamento de(String status) {
         try {
+            if (status == null)
+                throw new IllegalArgumentException();
+
             return Enum.valueOf(StatusPagamento.class, status.toUpperCase());
         } catch (IllegalArgumentException ex) {
             throw  new ApplicationException("Status não existe");

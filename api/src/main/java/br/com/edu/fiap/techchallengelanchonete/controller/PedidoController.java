@@ -34,7 +34,7 @@ public class PedidoController {
         return ResponseEntity
                 .ok(pedidoUseCase.listaPedidos(status));
     }
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @GetMapping(value="/{id}")
     public ResponseEntity<Pedido> pedido(@PathVariable Long id) {
         var pedido = pedidoUseCase.buscaPorId(id);
 

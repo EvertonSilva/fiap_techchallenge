@@ -81,16 +81,20 @@ separados da seguinte forma:
 
 Para fins de comodidade e facilidade na execução do projeto em um cluster local, optamos por executar o banco de dados
 dentro do cluster. Então o primeiro passo para a criação dos recursos no Kubernetes é abrir o arquivo _database_conf.yaml_,
-editar os valores dos Secrets definidos e executar o comando `kubectl apply -f database_conf.yaml`. Feito isso podemos
-prosseguir e a realizar o deployment do banco de dados aplicando as definições do arquivo `database.yaml`. Após essas
+editar os valores dos Secrets definidos e executar o comando `kubectl apply -f k8s/database_conf.yaml`. Feito isso podemos
+prosseguir e a realizar o deployment do banco de dados aplicando as definições do arquivo com `kubectl apply -f k8s/database.yaml`. Após essas
 etapas teremos os seguintes recursos adicionados ao cluster:
 - ConfigMap _db-config_ para guardar a URL do banco de dados;
 - Secret _db-secret_ para armazenar as credenciais de acesso ao banco de dados;
 - Deployment _postgres-dep_ responsável por executar o _pod_ onde estará o banco de dados;
 - Service _postgres-svc_ serviço, do tipo ClusterIP, para permitir que a aplicação acesse o banco de dados.
 
-Agora temos os recursos necessários para subir a aplicação backend dentro do cluster e para isso basta executar 
-`kubectl apply -f backend_api.yaml`. Tudo correndo como o esperado ao final da execução do comando teremos nosso backend
+Agora temos os recursos necessários para subir a aplicação backend dentro do cluster, há duas possíveis formas de fazer isso:
+1- Definir uma variável de ambiente com: `export FIAP_TECHCHALLENGE_DOCKER_IMAGE = public.ecr.aws/h6u9l9z6/fiap_techchallenge:latest`
+e logo em seguida executar `kubectl apply -f k8s/backend_api.yaml` ou
+2- Executar o comando: `FIAP_TECHCHALLENGE_DOCKER_IMAGE=public.ecr.aws/h6u9l9z6/fiap_techchallenge:latest envsubst < k8s/backend_api.yaml | kubectl apply -f -`
+
+Tudo correndo como o esperado ao final da execução do comando teremos nosso backend
 sendo executado no cluster e os seguintes recursos adicionados:
 
 - Deployment _backendapi-dep_ com os detalhes para criação dos pods da aplicação;
@@ -102,3 +106,10 @@ sendo executado no cluster e os seguintes recursos adicionados:
 Com o cluster de pé podemos testar a amplicação direcionando as requesições para a porta do serviço criado para permitir
 o acesso em `http://localhost:30808/api`. Caso vc tenha alterado o arquivo de manifesto para expor o serviço em uma
 porta diferente ajuste a url de acordo.
+
+# Cobertura de Testes
+
+Para verificar a cobertura de testes utilizados a ferramente JaCoCo integrada ao Maven, para gerar o relatório de cobertura de testes basta executar:
+```
+.\mvnw -f .\application\pom.xml clean test jacoco:report
+```

@@ -2,7 +2,7 @@ package br.com.edu.fiap.techchallengelanchonete.integration.gatewaypagamento.mer
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.ClienteNulo;
 import br.com.edu.fiap.techchallengelanchonete.domain.Pedido;
-import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataExpiracaoPagamento;
+import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataExpiracao;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Email;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoCopiaCola;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.PagamentoQRCode;
@@ -12,7 +12,6 @@ import com.mercadopago.client.common.IdentificationRequest;
 import com.mercadopago.client.payment.*;
 import com.mercadopago.core.MPRequestOptions;
 import com.mercadopago.resources.payment.Payment;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -42,7 +41,7 @@ public class GatewayMercadoPagoRegistrador implements IGatewayPagamentoRegistrad
                     .toString();
 
             var emailGeracaoPix = !(pedido.getCliente() instanceof ClienteNulo) ? pedido.getCliente().getEmail().getValor() : Email.EMAIL_PAGAMENTO;
-            var dataExpiracao = DataExpiracaoPagamento.DataExpiracaoPagamentoPadrao().getData();
+            var dataExpiracao = DataExpiracao.ExpiracaoPadraoPagamento().getData();
             var paymentCreateRequest =
                     PaymentCreateRequest.builder()
                             .transactionAmount(pedido.getValorTotal().getValor())
@@ -55,7 +54,7 @@ public class GatewayMercadoPagoRegistrador implements IGatewayPagamentoRegistrad
                                     PaymentPayerRequest.builder()
                                             .email(emailGeracaoPix)
                                             .firstName(pedido.getCliente().getPrimeiroNome())
-                                            .lastName(pedido.getCliente().getSobrenome())
+                                            .lastName(pedido.getCliente().getSobrenomes())
                                             .identification(
                                                     IdentificationRequest.builder().type("CPF").number(pedido.getCliente().getCpf().getValor()).build())
                                             .build())
@@ -64,7 +63,7 @@ public class GatewayMercadoPagoRegistrador implements IGatewayPagamentoRegistrad
             var client = new PaymentClient();
             Payment payment = client.create(paymentCreateRequest, requestOptions);
 
-            pedido.getPagamento().setDataExpiracaoPagamento(new DataExpiracaoPagamento(dataExpiracao));
+            pedido.getPagamento().setDataExpiracaoPagamento(new DataExpiracao(dataExpiracao));
             pedido.getPagamento().setPixCopiaECola(new PagamentoCopiaCola(payment.getPointOfInteraction().getTransactionData().getQrCode()));
             pedido.getPagamento().setPixQRCode64(new PagamentoQRCode(payment.getPointOfInteraction().getTransactionData().getQrCodeBase64()));
         } catch (Exception ex) {

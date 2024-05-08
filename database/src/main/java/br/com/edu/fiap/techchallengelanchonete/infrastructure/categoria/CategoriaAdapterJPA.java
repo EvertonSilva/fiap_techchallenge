@@ -1,11 +1,8 @@
 package br.com.edu.fiap.techchallengelanchonete.infrastructure.categoria;
 
 import br.com.edu.fiap.techchallengelanchonete.adapter.CategoriaAdapter;
-import br.com.edu.fiap.techchallengelanchonete.adapter.ProdutoAdapter;
 import br.com.edu.fiap.techchallengelanchonete.domain.Categoria;
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.ICategoriaPersistence;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
-import br.com.edu.fiap.techchallengelanchonete.infrastructure.produto.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

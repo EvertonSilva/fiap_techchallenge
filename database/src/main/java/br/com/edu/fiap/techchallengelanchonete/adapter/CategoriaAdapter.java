@@ -28,7 +28,7 @@ public class CategoriaAdapter implements IAdapter<Categoria, CategoriaModel> {
 
         CategoriaModel model = new CategoriaModel();
 
-        if (categoria.getId() != null)
+        if (categoria.getId() != null && categoria.getId().getValor() > 0)
             model.setId(categoria.getId().getValor());
 
         model.setNome(categoria.getNome().getValor());

@@ -38,7 +38,7 @@ public class ItemPedidoAdapter implements IAdapter<ItemPedido, ItemPedidoModel> 
 
         var itemPedidoModel = new ItemPedidoModel();
 
-        if (itemPedido.getId() != null)
+        if (itemPedido.getId() != null && itemPedido.getId().getValor() > 0)
             itemPedidoModel.setId(itemPedido.getId().getValor());
 
         itemPedidoModel.setQuantidade(itemPedido.getQuantidade().getValor());

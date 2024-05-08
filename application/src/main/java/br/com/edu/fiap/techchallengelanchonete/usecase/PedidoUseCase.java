@@ -35,7 +35,9 @@ public class PedidoUseCase {
             itemPedido.setProduto(optionalProduto.orElseThrow(() -> new NotFoundResourceException("Produto não encontrado!")));
         });
 
-        if (pedido.getCliente() != null && pedido.getCliente().getId() != null)
+        if (pedido.getCliente() != null 
+            && pedido.getCliente().getId() != null 
+            && pedido.getCliente().getId().getValor() > 0)
         {
             var clienteExistente = this.clientePersistence.buscaId(pedido.getCliente().getId().getValor());
             if (clienteExistente instanceof ClienteNulo)

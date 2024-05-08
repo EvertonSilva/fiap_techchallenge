@@ -52,7 +52,7 @@ public class PedidoAdapter implements IAdapter<Pedido, PedidoModel> {
 
         var pedidoModel = new PedidoModel();
 
-        if (pedido.getId() != null)
+        if (pedido.getId() != null && pedido.getId().getValor() > 0)
             pedidoModel.setId(pedido.getId().getValor());
 
         ClienteModel clienteModel = null;

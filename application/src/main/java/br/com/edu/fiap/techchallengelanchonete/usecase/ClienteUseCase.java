@@ -14,7 +14,7 @@ public class ClienteUseCase {
 
     public Cliente salvaCliente(Cliente cliente) {
         Cliente clienteExiste = this.clienteRepository.buscaCPF(cliente.getCpf());
-        if (clienteExiste.getId() != null)
+        if (clienteExiste.getId() != null && clienteExiste.getId().getValor() > 0)
             throw new ApplicationException("Cliente já existe!");
 
         return this.clienteRepository.cadastro(cliente);

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.exception.NotFoundResourceException;
 
-public class NoFoundResourceExceptionTest {
+class NoFoundResourceExceptionTest {
     
     @Test
     void deveGerarNoFoundResourceException() {

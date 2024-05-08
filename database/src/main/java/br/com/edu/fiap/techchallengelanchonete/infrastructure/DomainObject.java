@@ -24,7 +24,7 @@ public abstract class DomainObject implements Serializable {
     @Column(name = "data_atualizacao")
     protected Date dataAtualizacao;
 
-    public DomainObject(long id) {
+    protected DomainObject(long id) {
         this.id = id;
     }
 

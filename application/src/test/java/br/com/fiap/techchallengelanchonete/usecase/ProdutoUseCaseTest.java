@@ -25,7 +25,7 @@ import br.com.edu.fiap.techchallengelanchonete.infrastructure.ICategoriaPersiste
 import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistence;
 import br.com.edu.fiap.techchallengelanchonete.usecase.ProdutoUseCase;
 
-public class ProdutoUseCaseTest {
+class ProdutoUseCaseTest {
     
     AutoCloseable mock;
 

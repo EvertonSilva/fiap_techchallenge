@@ -24,7 +24,7 @@ public class GatewayMercadoPagoController implements IGatewayPagamentoConfirmaca
     }
 
     @PostMapping("pedido/{codigoPedido}")
-    public ResponseEntity confirmacaoPagamento(@PathVariable String codigoPedido,
+    public ResponseEntity<Object> confirmacaoPagamento(@PathVariable String codigoPedido,
                                                @RequestHeader Map<String, String> headers,
                                                @RequestParam Map<String, String> params,
                                                @RequestBody Map<String, Object> body) {

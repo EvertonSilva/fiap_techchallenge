@@ -22,14 +22,14 @@ public class ProdutoController {
         this.produtoUseCase = new ProdutoUseCase(produtoAdapterJPA, categoriaAdapterJPA);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(produtoUseCase.salvaProduto(produto));
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Produto>> getAllProdutos(
             @RequestParam(value = "categoria", required = false) String descricaoCategoria) {
         return ResponseEntity
@@ -37,7 +37,7 @@ public class ProdutoController {
                 .body(produtoUseCase.listaProdutos(descricaoCategoria));
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @GetMapping(value="/{id}")
     public ResponseEntity<Produto> getById(@PathVariable Long id) {
         var produto = produtoUseCase.buscaPorId(id);
 

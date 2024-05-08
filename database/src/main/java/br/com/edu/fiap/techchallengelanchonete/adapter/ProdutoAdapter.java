@@ -42,7 +42,7 @@ public class ProdutoAdapter implements IAdapter<Produto, ProdutoModel> {
 
         var produtoModel = new ProdutoModel();
 
-        if (produto.getId() != null)
+        if (produto.getId() != null && produto.getId().getValor() > 0)
             produtoModel.setId(produto.getId().getValor());
 
         produtoModel.setNome(produto.getNome().getValor());

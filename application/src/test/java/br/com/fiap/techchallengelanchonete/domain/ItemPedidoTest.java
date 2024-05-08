@@ -7,16 +7,14 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.registerCustomDateFormat;
 
 import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.ItemPedido;
-import br.com.edu.fiap.techchallengelanchonete.domain.Produto;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Quantidade;
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.Valor;
 
-public class ItemPedidoTest {
+class ItemPedidoTest {
     
     @Test
     void deveCriarItemPedidoVazio() {

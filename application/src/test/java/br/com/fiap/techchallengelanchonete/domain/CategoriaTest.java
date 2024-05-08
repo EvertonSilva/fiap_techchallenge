@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Categoria;
 
-public class CategoriaTest {
+class CategoriaTest {
     
     @Test
     void deveCriarCategoriaVazia() {

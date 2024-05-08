@@ -19,7 +19,7 @@ public class ClienteController {
         this.clienteUseCase = new ClienteUseCase(clienteRepository);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<Cliente> cliente(@RequestParam("cpf") String cpf) {
         Cliente cliente = clienteUseCase.buscaClientePorCPF(cpf);
 
@@ -27,7 +27,7 @@ public class ClienteController {
                 ResponseEntity.notFound().build() : ResponseEntity.ok(cliente);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Cliente> criaCliente(@RequestBody Cliente cliente)
     {
         return ResponseEntity

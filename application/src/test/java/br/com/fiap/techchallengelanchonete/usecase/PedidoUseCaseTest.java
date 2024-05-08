@@ -3,7 +3,6 @@ package br.com.fiap.techchallengelanchonete.usecase;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -35,7 +34,7 @@ import br.com.edu.fiap.techchallengelanchonete.infrastructure.IProdutoPersistenc
 import br.com.edu.fiap.techchallengelanchonete.integration.gatewaypagamento.IGatewayPagamentoRegistrador;
 import br.com.edu.fiap.techchallengelanchonete.usecase.PedidoUseCase;
 
-public class PedidoUseCaseTest {
+class PedidoUseCaseTest {
     
     AutoCloseable mock;
 
@@ -234,9 +233,10 @@ public class PedidoUseCaseTest {
             when(pedidoPersistence.consultaPedidoPorCodigo(any(String.class)))
                 .thenReturn(Optional.empty());
 
+            var uuid = UUID.randomUUID().toString();
             var notFoundResourceException = assertThrows(
                 NotFoundResourceException.class, 
-                () -> pedidoUseCase.confirmacaoPagamento(UUID.randomUUID().toString(), StatusPagamento.APROVADO));
+                () -> pedidoUseCase.confirmacaoPagamento(uuid, StatusPagamento.APROVADO));
 
             assertThat(notFoundResourceException)
                 .hasMessage("Pedido não encontrado!");

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataExpiracao;
 
-public class DataExpiracaoPagamentoTest {
+class DataExpiracaoPagamentoTest {
     
     @Test
     void deveGerarDataPadraoExpiracaoDe30Minutos() throws InterruptedException {

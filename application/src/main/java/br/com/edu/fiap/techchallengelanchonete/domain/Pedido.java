@@ -57,7 +57,7 @@ public class Pedido extends DomainObject {
         List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
         pedidosOrdenados
             .sort(Comparator.comparing(
-                (pedido) -> {
+                pedido -> {
                     switch (pedido.getStatus()) {
                         case RECEBIDO: return 0;
                         case EM_PREPARACAO: return 1;
@@ -77,7 +77,7 @@ public class Pedido extends DomainObject {
         List<Pedido> pedidosOrdenados = new ArrayList<>(pedidos);
         pedidosOrdenados.sort(
             Comparator.comparing(
-                (pedido) -> pedido.getData().getValor().getTime()));
+                pedido -> pedido.getData().getValor().getTime()));
 
         return pedidosOrdenados;
     }
@@ -86,15 +86,12 @@ public class Pedido extends DomainObject {
         if (pedidos == null)
             return new ArrayList<>();
 
-        List<Pedido> pedidosFiltrados =
-            pedidos
+        return pedidos
                 .stream()
                 .filter(pedido -> 
                     pedido.getStatus() != StatusPedido.FINALIZADO 
                     && pedido.getStatus() != StatusPedido.AGUARDANDO_PAGAMENTO)
                 .collect(Collectors.toList());
-        
-        return pedidosFiltrados;
     }
 
     public Valor getValorTotal() {

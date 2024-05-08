@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.Cliente.Cliente;
 
-public class ClienteTest {
+class ClienteTest {
     
     @Test
     void deveCriarClienteVazio() {

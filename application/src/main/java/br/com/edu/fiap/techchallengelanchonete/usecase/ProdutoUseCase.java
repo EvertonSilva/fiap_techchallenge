@@ -20,7 +20,11 @@ public class ProdutoUseCase {
 
     public Produto salvaProduto(Produto produto) {
         var categoriaExistente = false;
-        var categoriaInformada = produto.getCategoria() != null && produto.getCategoria().getId() != null;
+        var categoriaInformada = 
+            produto.getCategoria() != null 
+            && produto.getCategoria().getId() != null
+            && produto.getCategoria().getId().getValor() > 0;
+
         if (categoriaInformada) {
             Optional<Categoria> categoriaBuscada = this.categoriaPersistence.buscaCategoria(produto.getCategoria().getId().getValor());
             categoriaExistente = categoriaBuscada.isPresent();

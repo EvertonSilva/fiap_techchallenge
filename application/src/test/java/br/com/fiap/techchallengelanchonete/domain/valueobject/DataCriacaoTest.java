@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.Instant;
 
+import org.awaitility.Awaitility;
+import org.awaitility.Durations;
 import org.junit.jupiter.api.Test;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.valueobject.DataCriacao;
 
-public class DataCriacaoTest {
+class DataCriacaoTest {
     
     @Test
     void deveGerarDataCriacaoValida() {
@@ -25,7 +27,7 @@ public class DataCriacaoTest {
         var dataCriacaoA = new DataCriacao();
         verificaDataCriacaoVazia(dataCriacaoA);
 
-        Thread.sleep(1);
+        Awaitility.await().pollDelay(Durations.ONE_SECOND).until(() -> true);
 
         var dataCriacaoB = new DataCriacao();
         verificaDataCriacaoVazia(dataCriacaoB);
@@ -39,7 +41,7 @@ public class DataCriacaoTest {
         assertThat(dataCriacao.getValor())
             .isNotNull();
         assertThat(dataCriacao.getValor().getTime())
-            .isGreaterThan(0);
+            .isPositive();
     }
 
 }

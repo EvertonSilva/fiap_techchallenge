@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPedido;
 import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 
-public class StatusPedidoTest {
+class StatusPedidoTest {
 
     @ParameterizedTest
     @ValueSource(
@@ -34,27 +34,27 @@ public class StatusPedidoTest {
     @ParameterizedTest
     @ValueSource(strings = { "bananinha", "" })
     void deveCriarStatusPedidoPorString_quandoStringInvalida(String statusPedidoTexto) {
-        var ApplicationException = assertThrows(ApplicationException.class, () -> {
+        var applicationException = assertThrows(ApplicationException.class, () -> {
             StatusPedido.de(statusPedidoTexto);
         });
 
-        assertThat(ApplicationException)
+        assertThat(applicationException)
             .isNotNull()
             .isInstanceOf(ApplicationException.class);
-        assertThat(ApplicationException.getMessage())
+        assertThat(applicationException.getMessage())
             .isEqualTo("Status não existe");
     }
 
     @Test
     void deveCriarStatusPedidoPorString_quandoStringNula() {
-        var ApplicationException = assertThrows(ApplicationException.class, () -> {
+        var applicationException = assertThrows(ApplicationException.class, () -> {
             StatusPedido.de(null);
         });
 
-        assertThat(ApplicationException)
+        assertThat(applicationException)
             .isNotNull()
             .isInstanceOf(ApplicationException.class);
-        assertThat(ApplicationException.getMessage())
+        assertThat(applicationException.getMessage())
             .isEqualTo("Status não existe");
     }
 

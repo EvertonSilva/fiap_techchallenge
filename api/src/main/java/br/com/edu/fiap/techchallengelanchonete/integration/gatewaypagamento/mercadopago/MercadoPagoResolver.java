@@ -1,10 +1,11 @@
 package br.com.edu.fiap.techchallengelanchonete.integration.gatewaypagamento.mercadopago;
 
 import br.com.edu.fiap.techchallengelanchonete.domain.StatusPagamento;
+import br.com.edu.fiap.techchallengelanchonete.exception.ApplicationException;
 import br.com.edu.fiap.techchallengelanchonete.integration.gatewaypagamento.IGatewayPagamentoResolver;
 import com.mercadopago.client.payment.PaymentClient;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import com.mercadopago.exceptions.MPApiException;
+import com.mercadopago.exceptions.MPException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import java.util.Optional;
 //@Profile("prd")
 //@Component
 public class MercadoPagoResolver implements IGatewayPagamentoResolver {
-    private final String HOST_MERCADO_PAGO = "mercadopago";
+    private static final String HOST_MERCADO_PAGO = "mercadopago";
 
     @Override
     public boolean validaGatewayPagamentoCorrente(Map<String, String> headers, Map<String, String> params, Map<String, Object> body) {
@@ -33,6 +34,7 @@ public class MercadoPagoResolver implements IGatewayPagamentoResolver {
 
     public StatusPagamento interpretaStatusPagamento(Map<String, String> headers, Map<String, String> params, Map<String, Object> body) {
         try {
+            @SuppressWarnings("unchecked")
             var data = (Map<String, Object>)body.get("data");
             var id = data.get("id");
 
@@ -43,8 +45,8 @@ public class MercadoPagoResolver implements IGatewayPagamentoResolver {
 
             return statusPayment.equals("approved") ?
                     StatusPagamento.APROVADO : StatusPagamento.REPROVADO;
-        } catch (Exception ex) {
-            throw new RuntimeException("Erro ao consultar status do pagamento no Mercado Pago", ex);
+        } catch (MPException | MPApiException ex) {
+            throw new ApplicationException("Erro ao consultar status do pagamento no Mercado Pago");
         }
     }
 }

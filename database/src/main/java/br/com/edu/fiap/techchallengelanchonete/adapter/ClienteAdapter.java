@@ -32,7 +32,7 @@ public class ClienteAdapter implements IAdapter<Cliente, ClienteModel> {
 
         ClienteModel clienteModel = new ClienteModel();
 
-        if(cliente.getId() != null)
+        if(cliente.getId() != null && cliente.getId().getValor() > 0)
             clienteModel.setId(cliente.getId().getValor());
 
         if(cliente.getNome() != null)
